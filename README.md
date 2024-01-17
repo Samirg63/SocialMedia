@@ -1,0 +1,1 @@
+//Basicamente esse projeto não segue um padrão muito claro, a estrutura é MVC com sistema de rotas.

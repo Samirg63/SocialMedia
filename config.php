@@ -16,7 +16,7 @@
     $autoload = function($class){
         include('classes/'.$class.'.php');
     };
-
+    include('classes/vendor/autoload.php');
     spl_autoload_register($autoload);
 
     function selecionadoMenu($par){

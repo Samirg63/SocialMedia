@@ -149,6 +149,16 @@ include('../config.php');
             }
 
             die(json_encode($search));
+        }else if($_POST['action1'] == 'checkCode'){
+            if($_POST['code'] == $_SESSION['code'])
+                die('true');
+            else
+                die('false');
+            
+        }else if($_POST['action1'] == 'createAccount'){
+            $login = new controllers\loginController();
+            $login->createAccount($_SESSION['temp_nome'],$_SESSION['temp_nascimento'],$_SESSION['temp_senha'],$_SESSION['temp_genero'],$_SESSION['temp_user'],$_SESSION['temp_email']);
+            die();
         }
 
     //ACTION 2

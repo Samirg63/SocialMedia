@@ -1,5 +1,6 @@
 <?php
     include('config.php');
+    $_SESSION['temp_email'] = 'samir-gomes13@hotmail.com';
 
     $loginController = new controllers\loginController();
     $homeController = new controllers\homeController();

@@ -504,4 +504,50 @@ $(function(){
                   });
             })
     })
+
+    //Habilitar overlay Fixo
+    /*if(typeof($('.autenticateBox')) != undefined){
+        $('.overlayFix').show();
+    }*/
+
+    //Checar código de autenticação de e-mail
+    $('.authCode').keyup(function(){
+        let val = $(this).val();
+        let container = $(this).parent();
+        if(val.length == 6){
+            $.ajax({
+                url:path+'ajax/requests.php',
+                method:'post',
+                data:{action1:'checkCode',code:val}
+            }).done(function(data){
+                if(data == 'true'){
+                    //Código Cérto
+                    container.find('small').css('color','green'); 
+                    container.find('small').html(`*Código Válido`)
+                    setTimeout(() => {
+                        $.ajax({
+                            url:path+'ajax/requests.php',
+                            method:'post',
+                            data:{'action1':'createAccount'}
+                        }).done(function(){
+                            container.parent().fadeOut();
+                            $('.overlayFix').hide();
+                            window.location.href=path;
+                        })
+
+                        
+                        
+                    }, 2000);
+                }else{
+                    //Código Errado
+                    container.find('small').css('color','red'); 
+                    container.find('small').html(`*Código Inválido`)
+                }
+            })
+        }else{
+            container.find('small').html(``)
+        }
+    })
+        
 })
+

@@ -1,3 +1,4 @@
+
 <section class="flex loginBox center">
     <div class="info">
         <h1>Social.Media</h1>
@@ -14,7 +15,7 @@
             <label class="showPassword"><i class="fa-regular fa-eye"></i></label>
         </div>
         <input type="submit" value="Entrar" name="logar">
-        <a href="<?=PATH.'/login?register'?>">criar nova conta</a>
+        <a href="<?=PATH.'login?register'?>">criar nova conta</a>
     </form>
     <?php }else{
         #FORM Registrar    
@@ -37,7 +38,7 @@
             <label class="showPassword"><i class="fa-regular fa-eye"></i></label>
         </div>
         <input type="submit" value="Criar conta e entrar" name="registrar">
-        <a href="<?=PATH.'/login'?>">Já tenho uma conta</a>
+        <a href="<?=PATH.'login'?>">Já tenho uma conta</a>
     </form>
     <?php } ?>
 </section>

@@ -50,6 +50,9 @@
                     $senha = \Bcrypt::hash($senha1);
                     $sql = \Mysql::conectar()->prepare('UPDATE `tb_admin.usuarios` SET senha = ? WHERE login=?');
                     $sql->execute([$senha,$email]);
+
+                    $sql = \Mysql::conectar()->prepare('DELETE FROM `tb_admin.requestNewPassword` WHERE token=?');
+                    $sql->execute([$_GET['token']]);
                     echo '<script>alert("Senha alterada com sucesso!")</script>';
                     \site::redirect(PATH);
                     die();

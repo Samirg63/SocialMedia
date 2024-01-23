@@ -1,6 +1,8 @@
 <?php
     include('config.php');
-    $_SESSION['temp_email'] = 'samir-gomes13@hotmail.com';
+
+    //Deletar tokens de nova senha;
+    site::deleteTokens();
 
     $loginController = new controllers\loginController();
     $forgotPasswordController = new controllers\forgotPasswordController();

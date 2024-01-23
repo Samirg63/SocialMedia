@@ -4,6 +4,12 @@
             echo '<script>window.location.href="'.$path.'"</script>';
         }
 
+        public static function deleteTokens(){
+            $diaDeletar = date('Y-m-d',time()-60*60*24);
+            $sql = Mysql::conectar()->prepare("DELETE FROM `tb_admin.requestNewPassword` WHERE criado_em <= ?");
+            $sql->execute([$diaDeletar]);
+        }
+
         public static function login($user,$id,$img){
             $_SESSION['login'] = $user;
             $_SESSION['id'] = $id;

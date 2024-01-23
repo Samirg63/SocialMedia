@@ -4,8 +4,8 @@
             echo '<script>window.location.href="'.$path.'"</script>';
         }
 
-        public static function login($nome,$id,$img){
-            $_SESSION['login'] = $nome;
+        public static function login($user,$id,$img){
+            $_SESSION['login'] = $user;
             $_SESSION['id'] = $id;
             $_SESSION['img'] = $img;
 

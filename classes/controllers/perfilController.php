@@ -14,8 +14,29 @@
 
             if(isset($_POST['bio'])){
                 $bio = $_POST['bio'];
-                $sql = \Mysql::conectar()->prepare('UPDATE `tb_admin.usuarios` SET bio=? WHERE id=?');
-                $sql->execute([$bio,$_SESSION['id']]);
+                $user = $_POST['user'];
+                //Validar Usuário
+                if($user != $_SESSION['login']){
+
+                    $sql = \Mysql::conectar()->prepare('SELECT * FROM `tb_admin.usuarios` WHERE user = ?');
+                    $sql->execute([$user]);
+                    if($sql->rowCount() != 0){
+                        echo '<script>alert("Nome de usuário ja existe!")</script>';
+                    }
+                }else{
+
+                    
+                    if($_POST['senha'] != ''){
+                        $senha = \Bcrypt::hash($_POST['senha']);
+                        
+                        $sql = \Mysql::conectar()->prepare('UPDATE `tb_admin.usuarios` SET bio=?,user=?,senha=? WHERE id=?');
+                        $sql->execute([$bio,$user,$senha,$_SESSION['id']]);
+                    }else{
+                        $sql = \Mysql::conectar()->prepare('UPDATE `tb_admin.usuarios` SET bio=?,user=? WHERE id=?');
+                        $sql->execute([$bio,$user,$_SESSION['id']]);
+                    }
+                    echo '<script>Perfil editado com sucesso!</script>';
+                }
             }
 
             if(isset($par)){

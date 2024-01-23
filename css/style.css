@@ -151,6 +151,59 @@ section.erro {
 section.erro i {
   margin-right: 10px;
 }
+section.forgotPassword {
+  background-color: white;
+  padding: .8rem;
+  border-radius: 15px;
+  width: 60%;
+  max-width: 600px;
+  border: 1px solid black;
+  text-align: center;
+}
+section.forgotPassword form {
+  margin-top: 20px;
+}
+section.forgotPassword form .group {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin-bottom: 15px;
+}
+section.forgotPassword form .group label {
+  font-weight: bold;
+  margin-bottom: 10px;
+  margin-left: 5px;
+}
+section.forgotPassword form .group input {
+  height: 35px;
+  padding-left: 1rem;
+  border-radius: 15px;
+  border: 1px solid #ccc;
+}
+section.forgotPassword form input[type=submit] {
+  width: 250px;
+  height: 35px;
+  border-radius: 20px;
+  cursor: pointer;
+  background-color: #2B2962;
+  color: white;
+  font-weight: bold;
+  border: 0;
+  font-size: 1.05rem;
+}
+section.forgotPassword form .passwordBox {
+  position: relative;
+}
+section.forgotPassword form .passwordBox label {
+  position: absolute;
+  top: 8px;
+  right: 15px;
+  cursor: pointer;
+}
+section.forgotPassword form .passwordBox input {
+  width: 100%;
+  height: 35px;
+}
 section.loginBox {
   width: 70%;
   justify-content: space-between;
@@ -182,6 +235,11 @@ section.loginBox form .passwordBox label {
   top: 14px;
   right: 15px;
   cursor: pointer;
+}
+section.loginBox form .forgotPassword {
+  text-align: right;
+  font-size: .8rem;
+  margin-bottom: 10px;
 }
 section.loginBox form input,
 section.loginBox form select {
@@ -832,7 +890,7 @@ section.friends .amigos .amigoSingle .info span {
   color: #454545;
   opacity: 44%;
 }
-form.editBioForm {
+form.editPerfilForm {
   display: none;
   position: absolute;
   top: 50%;
@@ -842,16 +900,16 @@ form.editBioForm {
   border-radius: 15px;
   z-index: 3;
   width: 60%;
-  max-width: 500px;
+  max-width: 1000px;
 }
-form.editBioForm .top {
+form.editPerfilForm .top {
   padding: .8rem;
   margin-bottom: 15px;
   border-bottom: 1px solid #454545;
   text-align: center;
   position: relative;
 }
-form.editBioForm .top button {
+form.editPerfilForm .top button {
   background: transparent;
   border: 0;
   cursor: pointer;
@@ -860,7 +918,7 @@ form.editBioForm .top button {
   left: .8rem;
   top: .8rem;
 }
-form.editBioForm .top input {
+form.editPerfilForm .top input {
   background: transparent;
   border: 0;
   cursor: pointer;
@@ -871,19 +929,45 @@ form.editBioForm .top input {
   right: .8rem;
   top: 1rem;
 }
-form.editBioForm .fields {
-  text-align: center;
+form.editPerfilForm .flex {
+  justify-content: space-between;
+  padding-bottom: .8rem;
 }
-form.editBioForm .fields .textareaField {
+form.editPerfilForm .field {
+  text-align: center;
+  width: 49%;
+}
+form.editPerfilForm .field .group {
+  margin-right: .8rem;
+}
+form.editPerfilForm .field .group h4,
+form.editPerfilForm .field .group input {
+  margin-bottom: 15px;
+}
+form.editPerfilForm .field .group input {
+  height: 35px;
+  width: 100%;
+  padding-left: 1rem;
+}
+form.editPerfilForm .field .passwordBox {
   position: relative;
 }
-form.editBioForm .fields .textareaField span {
+form.editPerfilForm .field .passwordBox label {
+  position: absolute;
+  top: 9px;
+  right: 15px;
+  cursor: pointer;
+}
+form.editPerfilForm .field .textareaField {
+  position: relative;
+}
+form.editPerfilForm .field .textareaField span {
   position: absolute;
   bottom: 1rem;
   right: 1.5rem;
   color: #ccc;
 }
-form.editBioForm .fields textarea {
+form.editPerfilForm .field textarea {
   width: calc(100% - 1.6rem);
   border: 1px solid #ccc;
   resize: none;

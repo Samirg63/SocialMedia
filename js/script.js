@@ -140,7 +140,7 @@ $(function(){
         $('.overlay').hide();
         $('.newPost').hide();
         $('.editFotoForm').hide();
-        $('.editBioForm').hide();
+        $('.editPerfilForm').hide();
         $('.full').show();
         $('.resumido').hide();
         $('.notifications').hide();
@@ -180,15 +180,15 @@ $(function(){
         $('.editFotoForm').submit();
     })
 
-    $('.editBioSubmit').click(function(){
-        $('.editBioForm').submit();
+    $('.editPerfilSubmit').click(function(){
+        $('.editPerfilForm').submit();
     })
 
     //Abrir Bio Form
 
-    $('.editBio').click(function(){
+    $('.editPerfil').click(function(){
         $('.overlay').fadeIn();
-        $('.editBioForm').fadeIn();
+        $('.editPerfilForm').fadeIn();
     })
     //Criar Post pop-up
 

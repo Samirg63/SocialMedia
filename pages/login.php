@@ -1,4 +1,3 @@
-
 <section class="flex loginBox center">
     <div class="info">
         <h1>Social.Media</h1>
@@ -13,6 +12,9 @@
         <div class="passwordBox">
             <input type="password" name="senha" placeholder="Senha">
             <label class="showPassword"><i class="fa-regular fa-eye"></i></label>
+        </div>
+        <div class="forgotPassword">
+            <a href="<?=PATH?>esqueci-minha-senha">Esqueci minha senha!</a>
         </div>
         <input type="submit" value="Entrar" name="logar">
         <a href="<?=PATH.'login?register'?>">criar nova conta</a>

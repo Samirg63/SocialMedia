@@ -17,7 +17,7 @@
             session_destroy();
             $_SESSION['login'] = $login;
             $_SESSION['id'] = $id;
-            
+            $_SESSION['user'] = $user;
             
         }
         
@@ -86,7 +86,7 @@
                     
                     if(\Bcrypt::check($senha,$info['senha'])){
                         #SUCESSO
-                        \site::login($info['nome'],$info['id'],$info['img']);
+                        \site::login($info['user'],$info['id'],$info['img']);
                     }else{
                         #ERRO
                         echo '<script>alert("Usuario ou senha incorretos...")</script>';

@@ -23,20 +23,36 @@
     
 </div>
 
-<div class="editBioContainer">
-    <form class="editBioForm" method="post" >
+<div class="editPerfilContainer">
+    <form class="editPerfilForm" method="post" >
         <div class="top">
            <button class="closePopUp"><i class="fa-solid fa-x"></i></button>
-        <h3>Mudar Bio do perfil</h3>
-       <input class="editBioSubmit" type="submit" name="acao" value="Confirmar">
-    </div>
-    <div class="fields">
-        <h4>Sua bio</h4>
-        <div class="textareaField">
-            <textarea name="bio" class="bioForm" placeholder="Sua Bio..."><?=$infoPerfil['bio']?></textarea>
-            <span class="caracCounter flex">255/<p>0</p></span>
-        </div>
-    </div>
+            <h3>Editar Perfil</h3>
+            <input class="editPerfilSubmit" type="submit" name="acao" value="Confirmar">
+        </div><!--top-->
+    <div class="flex">
+
+        <div class="field">
+            <h4>Sua bio</h4>
+            <div class="textareaField">
+                <textarea name="bio" class="bioForm" placeholder="Sua Bio..."><?=$infoPerfil['bio']?></textarea>
+                <span class="caracCounter flex">255/<p>0</p></span>
+            </div>
+        </div><!--field-->
+        <div class="field">
+            <div class="group">
+                <h4>Mudar nome de usuário:</h4>
+                <input type="text" name="user" placeholder="Nome de Usuário..." value="<?=$infoPerfil['user']?>">
+            </div>
+            <div class="group">
+                <h4>Mudar Senha:</h4>
+                <div class="passwordBox">
+                    <input type="password" name="senha" placeholder="Senha..." >
+                    <label class="showPassword"><i class="fa-regular fa-eye"></i></label>
+                </div>
+            </div>
+        </div><!--field-->
+        </div><!--flex-->
     </form>
     
 </div>
@@ -64,7 +80,7 @@
                     <?=$infoPerfil['bio']?>
                 </div>
             </div>
-            <button class="editBio">Editar Bio</button>
+            <button class="editPerfil">Editar Perfil</button>
         </div>
     </div>
     <?php

@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 16/01/2024 às 14:24
--- Versão do servidor: 10.4.28-MariaDB
--- Versão do PHP: 8.0.28
+-- Tempo de geração: 23/01/2024 às 23:42
+-- Versão do servidor: 10.4.32-MariaDB
+-- Versão do PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -36,6 +36,26 @@ CREATE TABLE `tb_admin.likes` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura para tabela `tb_admin.requestnewpassword`
+--
+
+CREATE TABLE `tb_admin.requestnewpassword` (
+  `id` int(11) NOT NULL,
+  `token` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `criado_em` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `tb_admin.requestnewpassword`
+--
+
+INSERT INTO `tb_admin.requestnewpassword` (`id`, `token`, `email`, `criado_em`) VALUES
+(2, '65b03a7ac7899', 'samir-gomes13@hotmail.com', '2024-01-23');
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura para tabela `tb_admin.usuarios`
 --
 
@@ -57,9 +77,9 @@ CREATE TABLE `tb_admin.usuarios` (
 --
 
 INSERT INTO `tb_admin.usuarios` (`id`, `nome`, `nascimento`, `genero`, `user`, `login`, `senha`, `img`, `bio`, `localizacao`) VALUES
-(2, 'samir gomes de sá', '22/02/2006', 'M', 'samirg_sa', 'samir-gomes13@hotmail.com', '22022006sa', '659f05db06df2.jpeg', 'To tranquilão, to numa boa to curtindo o batidão', ''),
-(8, 'Giovana', '20/12/2020', 'F', 'Gih', '82999250507', 'gih123', '659f08488210a.jpeg', 'Bio aleatória de qualé qualé de caô', ''),
-(9, 'Jorge', '10/05/1995', 'M', 'Jorge25', 'jorge@hotmail.com', 'jorge123', '', '', '');
+(2, 'samir gomes de sá', '22/02/2006', 'M', 'samirg_sa', 'samir-gomes13@hotmail.com', '$2a$08$NzM0NTQwODQxNjViMDQwNOsK4sJV7Igr.HCQCzlmrOTQqOfDN9TG2', '659f05db06df2.jpeg', 'To tranquilão, to numa boa to curtindo o batidão', ''),
+(8, 'Giovana', '20/12/2020', 'F', 'Gih', '82999250507', '$2a$08$OTczNDAwNjM0NjViMDJmYu5C35oxnNVwUocVz0dTkJJxUDx2hXSuO', '659f08488210a.jpeg', 'Bio aleatória de qualé qualé de caô', ''),
+(9, 'Jorge', '10/05/1995', 'M', 'Jorge25', 'jorge@hotmail.com', '$2a$08$MTQwNTA3MjU0MjY1YjAyZOviUtLyNumdRKl4wY7QEyayoBrbuWhqq', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -73,6 +93,13 @@ CREATE TABLE `tb_site.comments` (
   `post_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `tb_site.comments`
+--
+
+INSERT INTO `tb_site.comments` (`id`, `content`, `post_id`, `user_id`) VALUES
+(12, 'Comentário teste', 4, 2);
 
 -- --------------------------------------------------------
 
@@ -120,7 +147,28 @@ CREATE TABLE `tb_site.posts` (
 --
 
 INSERT INTO `tb_site.posts` (`id`, `images`, `content`, `data`, `likes`, `comments`, `id_user`) VALUES
-(4, '65a5476181c35.jpeg<-!->65a5476181f45.jpeg', 'Pega essa bomba', '15/01/2024', 0, 0, 2);
+(4, '65a5476181c35.jpeg<-!->65a5476181f45.jpeg', 'Pega essa bomba', '15/01/2024', 0, 1, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `tb_site.reply.comments`
+--
+
+CREATE TABLE `tb_site.reply.comments` (
+  `id` int(11) NOT NULL,
+  `id_comment` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `content` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `tb_site.reply.comments`
+--
+
+INSERT INTO `tb_site.reply.comments` (`id`, `id_comment`, `id_user`, `content`) VALUES
+(1, 12, 2, '<b>@samirg_sa</b> Teste'),
+(2, 12, 2, '<b>@samirg_sa</b> Funfando!!');
 
 -- --------------------------------------------------------
 
@@ -154,6 +202,12 @@ ALTER TABLE `tb_admin.likes`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Índices de tabela `tb_admin.requestnewpassword`
+--
+ALTER TABLE `tb_admin.requestnewpassword`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Índices de tabela `tb_admin.usuarios`
 --
 ALTER TABLE `tb_admin.usuarios`
@@ -178,6 +232,12 @@ ALTER TABLE `tb_site.posts`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Índices de tabela `tb_site.reply.comments`
+--
+ALTER TABLE `tb_site.reply.comments`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Índices de tabela `tb_site.solicitacoes`
 --
 ALTER TABLE `tb_site.solicitacoes`
@@ -194,6 +254,12 @@ ALTER TABLE `tb_admin.likes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT de tabela `tb_admin.requestnewpassword`
+--
+ALTER TABLE `tb_admin.requestnewpassword`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT de tabela `tb_admin.usuarios`
 --
 ALTER TABLE `tb_admin.usuarios`
@@ -203,7 +269,7 @@ ALTER TABLE `tb_admin.usuarios`
 -- AUTO_INCREMENT de tabela `tb_site.comments`
 --
 ALTER TABLE `tb_site.comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de tabela `tb_site.notificacoes`
@@ -216,6 +282,12 @@ ALTER TABLE `tb_site.notificacoes`
 --
 ALTER TABLE `tb_site.posts`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de tabela `tb_site.reply.comments`
+--
+ALTER TABLE `tb_site.reply.comments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `tb_site.solicitacoes`

@@ -3,18 +3,24 @@
     $_SESSION['temp_email'] = 'samir-gomes13@hotmail.com';
 
     $loginController = new controllers\loginController();
+    $forgotPasswordController = new controllers\forgotPasswordController();
     $homeController = new controllers\homeController();
     $erroController = new controllers\erroController();
 
     $url = isset($_GET['url']) ? $_GET['url'] : 'home';
 
-    if(!isset($_SESSION['login']) && $url != 'login'){
+    if(!isset($_SESSION['login']) && $url != 'login' && $url != 'esqueci-minha-senha'){
         site::redirect(PATH.'login');
         die();
     }
 
     Router::get('/login',function() use ($loginController){ 
         $loginController->index();
+        die();
+    });
+
+    Router::get('/esqueci-minha-senha',function() use ($forgotPasswordController){ 
+        $forgotPasswordController->index();
         die();
     });
 

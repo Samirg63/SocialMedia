@@ -5,9 +5,9 @@
         }
 
         public static function deleteTokens(){
-            $diaDeletar = date('Y-m-d',time()-60*60*24);
+            $ontem = date('Y-m-d',time()-60*60*24);
             $sql = Mysql::conectar()->prepare("DELETE FROM `tb_admin.requestNewPassword` WHERE criado_em <= ?");
-            $sql->execute([$diaDeletar]);
+            $sql->execute([$ontem]);
         }
 
         public static function login($user,$id,$img){
@@ -124,6 +124,45 @@
             $sql = Mysql::conectar()->prepare('SELECT * FROM `tb_site.comments` WHERE post_id = ?');
             $sql->execute([$postId]);
             return $sql->fetchAll();
+        }
+
+        public static function formatNumberTitle($number){
+            return number_format($number,0,'','.');
+        }
+
+        public static function formatNumber($number){
+            $length = strlen($number);
+            if($length < 4){
+                return $number;
+            }
+            $tinyNumber = substr($number,0,4);
+            //Formatar numero
+            if($length % 4 == 0 || $length % 4 == 3){
+                //0.000
+                $position = 1;
+                $formatetNumber = substr($tinyNumber,0,$position) .'.'.substr($tinyNumber,$position,strlen($tinyNumber) - 1);
+            }else if($length % 4 == 1){
+                //00.00
+                $position = 2;
+                $formatetNumber = substr($tinyNumber,0,$position) .'.'.substr($tinyNumber,$position,strlen($tinyNumber) - 1);
+                
+            }else if($length % 4 == 2){
+                //000.0
+                $position = 3;
+                $formatetNumber = substr($tinyNumber,0,$position) .'.'.substr($tinyNumber,$position,strlen($tinyNumber) - 1);
+            }
+            //adicionar extensão
+            if($length <= 4){
+                $ext = '';
+            }else if($length > 4 && $length <= 6){
+                $ext = 'K';
+            }else if($length > 6 && $length <= 8){
+                $ext = 'M';
+            }else{
+                $ext = 'B';
+            }
+
+            return $formatetNumber.$ext;
         }
     }
 ?>

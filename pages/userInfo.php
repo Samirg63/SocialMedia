@@ -27,7 +27,7 @@
                     <?php } ?>
                 </div>
                 <div class="userInfo">
-                    <p><?=$userInfo['user']?></p>
+                    <p><a href="<?=PATH_HOME?>perfil/<?=$userInfo['user']?>"><?=$userInfo['user']?></a></p>
                     <span><?=$value['data']?></span>
                 </div>
             </div>
@@ -54,8 +54,8 @@
             </div>
 
             <div class="actionBtn flex" idPost="<?=$value['id']?>">
-                <button class="like" title="<?=$value['likes'] ?>"><i style="<?php if(site::hasLiked($value['id'])){echo 'color:#ff8787;';}?>" class="<?php if(site::hasLiked($value['id'])){echo 'fa-solid';}else{echo 'fa-regular';}?> fa-heart"></i><span><?=$value['likes'] ?></span></button>
-                <button class="comment" title="<?=$value['comments'] ?>"><i class="fa-regular fa-comment"></i><span><?=$value['comments'] ?></span></button>
+                <button class="like" noFormatedNumber="<?=$value['likes']?> title="<?=site::formatNumberTitle($value['likes'])?>"><i style="<?php if(site::hasLiked($value['id'])){echo 'color:#ff8787;';}?>" class="<?php if(site::hasLiked($value['id'])){echo 'fa-solid';}else{echo 'fa-regular';}?> fa-heart"></i><span><?=site::formatNumber($value['likes'])?></span></button>
+                <button class="comment" noFormatedNumber="<?=$value['comments']?> title="<?=site::formatNumberTitle($value['comments'])?>"><i class="fa-regular fa-comment"></i><span><?=site::formatNumber($value['comments'])?></span></button>
             </div>
 
             <div class="comments closed">
@@ -75,18 +75,27 @@
                     foreach ($comments as $key => $value) {
                     $userInfoComment = site::getUserInfo($value['user_id']);
                 ?>
-                    <div class="commentSingle flex">
-                        <div class="commentImg">
-                        <?php if($userInfoComment['img'] != ''){?>
-                            <img src="<?=PATH.'uploads/'.$userInfoComment['img']?>">
-                        <?php }else{ ?>
-                            <img src="<?=PATH.'assets/avatar-placeholder.jpg'?>">
-                        <?php } ?>
-                        </div>
-                        <div class="commentInfo">
-                            <p><?=$userInfoComment['user']?></p>
-                            <span><?=$value['content']?></span>
-                        </div>                
+                    <div class="commentSingle">
+                        <div class="flex">
+
+                            <div class="commentImg">
+                                <?php if($userInfoComment['img'] != ''){?>
+                                    <img src="<?=PATH.'uploads/'.$userInfoComment['img']?>">
+                            <?php }else{ ?>
+                                <img src="<?=PATH.'assets/avatar-placeholder.jpg'?>">
+                            <?php } ?>
+                            </div>
+                            <div class="commentInfo">
+                            <p><a href="<?=PATH_HOME?>perfil/<?=$userInfoComment['user']?>"><?=$userInfoComment['user']?></a></p>
+                                <span><?=$value['content']?></span>
+                            </div>
+                        </div><!-- flex -->
+
+                        <div class="actionBtn flex commentActions" idComment="<?=$value['id']?>">
+                            <button class="like-comment" "><i  class="fa-regular fa-heart"></i><span>0</span></button>
+                            <button class="reply"><i class="fa-solid fa-reply"></i></button>
+                            <button class="show"><span class="status">Mostrar</span> Resposta (<span class="quantity"><?= models\feedModel::getReplyQuantity($value['id']) ?></span>)</button>
+                        </div><!--actionBtn-->        
                     </div><!--comentSingle-->
                 <?php } ?>
                 </div>

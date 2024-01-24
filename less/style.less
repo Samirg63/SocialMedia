@@ -460,7 +460,14 @@ section.main{
             .user{
                 align-items: center;
                 .userInfo{
-                    
+                    a{
+                        color: black;
+                        text-decoration: none;
+
+                        &:hover{
+                            text-decoration: underline;
+                        }
+                    }
                     span{
                         color: #454545;
                         opacity: 44%;
@@ -606,10 +613,15 @@ section.main{
                         }
                     }
                     .commentInfo{
-                        p{
+                        a{
                             color:#454545;
                             font-size: 1.1rem;
                             font-weight: bold;
+                            text-decoration: none;
+
+                            &:hover{
+                                text-decoration: underline;
+                            }
                         }
                         span{
                             color: #454545;
@@ -835,6 +847,30 @@ section.userInfo{
                 width: 100% !important;
             }
         }
+    }
+
+    .commentActions{
+                        
+        margin-left: 55px;
+        
+        button{
+            font-size: 1.3rem !important;
+            color: #969aa0 !important;
+            margin-right: 10px !important;
+        }
+
+        .like-comment i{
+            margin-right: 5px !important;
+        }
+
+        .show{
+            font-size: 1rem !important;
+            text-decoration: underline;
+        }
+    }
+
+    .replyComment{
+        margin-top: 15px;
     }
 }
 

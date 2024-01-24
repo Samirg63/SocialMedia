@@ -448,6 +448,13 @@ section.main .content .postSingle .options ul li button i {
 section.main .content .postSingle .user {
   align-items: center;
 }
+section.main .content .postSingle .user .userInfo a {
+  color: black;
+  text-decoration: none;
+}
+section.main .content .postSingle .user .userInfo a:hover {
+  text-decoration: underline;
+}
 section.main .content .postSingle .user .userInfo span {
   color: #454545;
   opacity: 44%;
@@ -564,10 +571,14 @@ section.main .content .postSingle .comments .commentSingle .commentImg img {
   max-height: 100%;
   border-radius: 50%;
 }
-section.main .content .postSingle .comments .commentSingle .commentInfo p {
+section.main .content .postSingle .comments .commentSingle .commentInfo a {
   color: #454545;
   font-size: 1.1rem;
   font-weight: bold;
+  text-decoration: none;
+}
+section.main .content .postSingle .comments .commentSingle .commentInfo a:hover {
+  text-decoration: underline;
 }
 section.main .content .postSingle .comments .commentSingle .commentInfo span {
   color: #454545;
@@ -748,6 +759,24 @@ section.userInfo div.ultimosPosts .info {
 section.userInfo div.ultimosPosts .info .carrosselBtn {
   top: 55% !important;
   width: 100% !important;
+}
+section.userInfo .commentActions {
+  margin-left: 55px;
+}
+section.userInfo .commentActions button {
+  font-size: 1.3rem !important;
+  color: #969aa0 !important;
+  margin-right: 10px !important;
+}
+section.userInfo .commentActions .like-comment i {
+  margin-right: 5px !important;
+}
+section.userInfo .commentActions .show {
+  font-size: 1rem !important;
+  text-decoration: underline;
+}
+section.userInfo .replyComment {
+  margin-top: 15px;
 }
 section.myFriends {
   width: 34%;

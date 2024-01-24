@@ -32,7 +32,7 @@
                     <?php } ?>
                 </div>
                 <div class="userInfo">
-                    <p><?=$userInfo['user']?></p>
+                    <p><a href="<?=PATH_HOME?>perfil/<?=$userInfo['user']?>"><?=$userInfo['user']?></a></p>
                     <span><?=$value['data']?></span>
                 </div>
             </div>
@@ -58,9 +58,9 @@
                 <?php } ?>
             </div>
 
-            <div class="actionBtn flex" idPost="<?=$value['id']?>">
-                <button class="like" title="<?=$value['likes'] ?>"><i style="<?php if(site::hasLiked($value['id'])){echo 'color:#ff8787;';}?>" class="<?php if(site::hasLiked($value['id'])){echo 'fa-solid';}else{echo 'fa-regular';}?> fa-heart"></i><span><?=$value['likes'] ?></span></button>
-                <button class="comment" title="<?=$value['comments'] ?>"><i class="fa-regular fa-comment"></i><span><?=$value['comments'] ?></span></button>
+            <div class="actionBtn flex" idPost="<?=$value['id']?>" ownerId="<?=$userInfo['id']?>">
+                <button class="like" noFormatedNumber="<?=$value['likes']?>" title="<?=site::formatNumberTitle($value['likes'])?>"><i style="<?php if(site::hasLiked($value['id'])){echo 'color:#ff8787;';}?>" class="<?php if(site::hasLiked($value['id'])){echo 'fa-solid';}else{echo 'fa-regular';}?> fa-heart"></i><span><?=site::formatNumber($value['likes'])?></span></button>
+                <button class="comment" noFormatedNumber="<?=$value['comments']?> title="<?=site::formatNumberTitle($value['comments'])?>"><i class="fa-regular fa-comment"></i><span><?=site::formatNumber($value['comments'])?></span></button>
             </div>
 
             <div class="comments closed">
@@ -69,6 +69,7 @@
                     <textarea name="comentario" placeholder="Seu comentário..."></textarea>
                     <input type="submit" name="postComment" id="submitComment" style="display:none;">
                     <input type="hidden" name="postId" value="<?=$value['id']?>">
+                    <input type="hidden" name="ownerId" value="<?=$value['id_user']?>">
                     <label for="submitComment"><i class="fa-solid fa-paper-plane"></i></label>
                 </form>
 
@@ -91,15 +92,15 @@
                             <?php } ?>
                             </div>
                             <div class="commentInfo">
-                                <p><?=$userInfoComment['user']?></p>
+                            <p><a href="<?=PATH_HOME?>perfil/<?=$userInfoComment['user']?>"><?=$userInfoComment['user']?></a></p>
                                 <span><?=$value['content']?></span>
                             </div>
                         </div><!-- flex -->
 
-                        <div class="actionBtn flex commentActions" idComment="<?=$value['id']?>">
+                        <div class="actionBtn flex commentActions" idComment="<?=$value['id']?>" ownerId="<?=$value['user_id']?>">
                             <button class="like-comment" "><i  class="fa-regular fa-heart"></i><span>0</span></button>
-                            <button class="reply"><i class="fa-solid fa-reply"></i></button>
-                            <button class="show"><span class="status">Mostar</span> Resposta (<span class="quantity"><?= models\feedModel::getReplyQuantity($value['id']) ?></span>)</button>
+                            <button class="reply" ><i class="fa-solid fa-reply"></i></button>
+                            <button class="show"><span class="status">Mostrar</span> Resposta (<span class="quantity"><?= models\feedModel::getReplyQuantity($value['id']) ?></span>)</button>
                         </div><!--actionBtn-->        
                     </div><!--comentSingle-->
                 <?php } ?>

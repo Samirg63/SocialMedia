@@ -37,17 +37,27 @@ $(function(){
 
     //Animação de like
     $('.like').click(function(){
-        let icon = $(this).find('i')
-        let postId = $(this).parent().attr('idPost');
+        let container = $(this);
+        let icon = container.find('i')
+        let postId = container.parent().attr('idPost');
+        let ownerId = container.parent().attr('ownerId');
         if(icon.hasClass('fa-regular')){
             //DAR LIKE
-            let likeQuant = parseInt($(this).attr('title'));
-            $(this).find('span').html(likeQuant+1);
-            $(this).attr('title',likeQuant+1)
+            let likeQuant = parseInt(container.attr('noFormatednumber'));
             $.ajax({
                 url:path+'ajax/requests.php',
                 method:'post',
-                data:{action1:'addLike',likes:likeQuant+1,post:postId}
+                data:{action1:'formatNumber',number:likeQuant+1},
+                dataType:'json'  
+            }).done(function(data){
+                container.find('span').html(data.view);
+                container.attr('title',data.hide)
+                container.attr('noFormatedNumber',likeQuant+1)
+            })
+            $.ajax({
+                url:path+'ajax/requests.php',
+                method:'post',
+                data:{action1:'addLike',likes:likeQuant+1,post:postId,ownerId:ownerId}
             }).done(function(){
                 icon.removeClass('fa-regular')
                 icon.addClass('fa-solid')
@@ -55,15 +65,24 @@ $(function(){
                     color:'#ff8787'
                 },100)
             })
-        }else{k
+        }else{
             //REMOVER LIKE
-            let likeQuant = parseInt($(this).attr('title'));
-            $(this).find('span').html(likeQuant-1);
-            $(this).attr('title',likeQuant-1)
+            let container = $(this);
+            let likeQuant = parseInt(container.attr('noFormatedNumber'));
             $.ajax({
                 url:path+'ajax/requests.php',
                 method:'post',
-                data:{action1:'removeLike',likes:likeQuant-1,post:postId}
+                data:{action1:'formatNumber',number:likeQuant-1},
+                dataType:'json'  
+            }).done(function(data){
+                container.find('span').html(data.view);
+                container.attr('title',data.hide)
+                container.attr('noFormatedNumber',likeQuant-1)
+            })
+            $.ajax({
+                url:path+'ajax/requests.php',
+                method:'post',
+                data:{action1:'removeLike',likes:likeQuant-1,post:postId,ownerId:ownerId}
             }).done(function(){
                 icon.removeClass('fa-solid')
                 icon.addClass('fa-regular')
@@ -95,24 +114,36 @@ $(function(){
         let postId = info[1].value;
         let trueContainer = $(this).parent().parent();
         let container = $(this).parent().find('.commentsContainer')
-        let commentQuant = parseInt(trueContainer.find('button.comment').attr('title'));
+        let commentQuant = parseInt(trueContainer.find('button.comment').attr('noFormatedNumber'));
+        let ownerId = info[2].value;
         $.ajax({
             url:path+'ajax/requests.php',
             method:"post",
-            data:{content:content,postId:postId,commentQuant:commentQuant+1,action1:'postComment'},
+            data:{content:content,postId:postId,commentQuant:commentQuant+1,action1:'postComment',ownerId:ownerId},
             dataType:'json'
         }).done(function(data){
 
             $('textarea[name=comentario]').val('');
-            trueContainer.find('button.comment').attr('title',commentQuant+1);
-            trueContainer.find('button.comment').find('span').html(commentQuant+1);
+            $.ajax({
+                url:path+'ajax/requests.php',
+                method:'post',
+                data:{action1:'formatNumber',number:commentQuant+1},
+                dataType:'json'  
+            }).done(function(data){
+                trueContainer.find('button.comment').find('span').html(data.view);
+                trueContainer.find('button.comment').attr('title',data.hide)
+                trueContainer.find('button.comment').attr('noFormatedNumber',commentQuant+1)
+            })
+            
+            
             if(data.img != ''){
                 var image = path+'uploads/'+data.img
             }else{
                 var image = path+'assets/avatar-placeholder.jpg'
             }
             container.prepend(`
-            <div class="commentSingle flex">
+            <div class="commentSingle">
+            <div class="flex">
                 <div class="commentImg">
                     <img src="${image}">
                 </div>
@@ -120,7 +151,13 @@ $(function(){
                     <p>${data.user}</p>
                     <span>${content}</span>
                 </div>
-                </div>
+            </div>
+            <div class="actionBtn flex commentActions" idComment="<?=$value['id']?>" ownerId="<?=$value['user_id']?>">
+                <button class="like-comment" "><i  class="fa-regular fa-heart"></i><span>0</span></button>
+                <button class="reply" ><i class="fa-solid fa-reply"></i></button>
+                <button class="show"><span class="status">Mostrar</span> Resposta (<span class="quantity">0</span>)</button>
+            </div><!--actionBtn-->  
+            
             </div><!--comentSingle-->
             `)
         })
@@ -550,10 +587,9 @@ $(function(){
     })
 
     //Comentar Comentário - (Abrir formulario)
-    $('.reply').click(function(){
+    $('body').on('click','.reply',function(){
         let container = $(this).parent().parent();
-        let commentId = $(this).parent().attr('idComment');
-
+        let ownerId = $(this).parent().attr('ownerId');
 
         //validação de container
         if(container.find('.replyComment').html() == undefined){
@@ -562,7 +598,7 @@ $(function(){
             <form method="post" class="flex commentForm replyComment">
                 <textarea name="comentario" placeholder="Seu comentário..."></textarea>
                 <input type="submit" name="postComment" id="submitReply" style="display:none;">
-                <input type="hidden" name="postId" value="">
+                <input type="hidden" name="ownerId" value="${ownerId}">
                 <label for="submitReply"><i class="fa-solid fa-paper-plane"></i></label>
             </form>
             `);
@@ -575,6 +611,7 @@ $(function(){
     $('body').on('submit','.replyComment',function(e){
         let commentId = $(this).parent().find('.commentActions').attr('idComment');
         let content = $(this).find('textarea').val();
+        let ownerId = $(this).find('[name=ownerId]').val();
         let quantityContainer = $(this).parent().find('.quantity');
         let quantity = parseInt(quantityContainer.html()) + 1;
         let container = $(this);
@@ -583,14 +620,14 @@ $(function(){
         $.ajax({
             url:path+'ajax/requests.php',
             method:'post',
-            data:{action1:'addReply',commentId:commentId,content:content,repliedName:repliedName}
+            data:{action1:'addReply',commentId:commentId,content:content,repliedName:repliedName,ownerId:ownerId}
         }).done(function(){
             quantityContainer.html(quantity)
             container.remove()
         })
     })
 
-    //Comentar comentario - (mostar respostas)
+    //Comentar comentario - (mostrar respostas)
 
     $('.show').click(function(){
         let container = $(this).parent().parent();
@@ -620,7 +657,7 @@ $(function(){
                                 <div class="commentImg">  
                                 </div>
                                 <div class="commentInfo">
-                                    <p>${user[0].user}</p>
+                                    <p><a href="${path}home/perfil/${user[0].user}">${user[0].user}</a></p>
                                     <span>${replys[key].content}</span>
                                 </div>
                             </div><!-- flex -->    

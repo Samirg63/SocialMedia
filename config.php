@@ -32,10 +32,24 @@
 
     #MENSAGENS DE NOTIFICAÇÃO
     function returnMessage($action){
-        if($action == 'amizade'){
-            return 'Quer se tornar seu amigo(a).';
-        }else if($action == 'amizadeAceita'){
-            return 'Se tornou seu amigo(a).';
+        
+        switch ($action) {
+            case 'amizade':
+                return 'Quer se tornar seu amigo(a).';
+                break;
+            
+            case 'amizadeAceita':
+                return 'Se tornou seu amigo(a).';
+                break;
+            case 'like':
+                return 'Curtiu seu post!';
+                break;
+            case 'respondeu':
+                return 'Respondeu seu comentario!';
+                break;
+            case 'comentou':
+                return 'Comentou no seu post!';
+                break;
         }
     }
 ?>

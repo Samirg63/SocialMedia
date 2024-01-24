@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 23/01/2024 às 23:42
+-- Tempo de geração: 25/01/2024 às 00:04
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -33,6 +33,14 @@ CREATE TABLE `tb_admin.likes` (
   `id_post` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Despejando dados para a tabela `tb_admin.likes`
+--
+
+INSERT INTO `tb_admin.likes` (`id`, `id_user`, `id_post`) VALUES
+(10, 2, 4),
+(11, 8, 4);
+
 -- --------------------------------------------------------
 
 --
@@ -45,13 +53,6 @@ CREATE TABLE `tb_admin.requestnewpassword` (
   `email` varchar(255) NOT NULL,
   `criado_em` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Despejando dados para a tabela `tb_admin.requestnewpassword`
---
-
-INSERT INTO `tb_admin.requestnewpassword` (`id`, `token`, `email`, `criado_em`) VALUES
-(2, '65b03a7ac7899', 'samir-gomes13@hotmail.com', '2024-01-23');
 
 -- --------------------------------------------------------
 
@@ -99,7 +100,8 @@ CREATE TABLE `tb_site.comments` (
 --
 
 INSERT INTO `tb_site.comments` (`id`, `content`, `post_id`, `user_id`) VALUES
-(12, 'Comentário teste', 4, 2);
+(12, 'Comentário teste', 4, 2),
+(17, 'Comentei', 4, 8);
 
 -- --------------------------------------------------------
 
@@ -112,19 +114,20 @@ CREATE TABLE `tb_site.notificacoes` (
   `id_from` int(11) NOT NULL,
   `id_to` int(11) NOT NULL,
   `action` varchar(255) NOT NULL,
-  `view` tinyint(1) NOT NULL
+  `view` tinyint(1) NOT NULL,
+  `extra` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `tb_site.notificacoes`
 --
 
-INSERT INTO `tb_site.notificacoes` (`id`, `id_from`, `id_to`, `action`, `view`) VALUES
-(15, 8, 2, 'amizadeAceita', 1),
-(16, 2, 8, 'amizadeAceita', 1),
-(17, 8, 9, 'amizade', 0),
-(18, 8, 9, 'amizade', 0),
-(19, 8, 9, 'amizade', 0);
+INSERT INTO `tb_site.notificacoes` (`id`, `id_from`, `id_to`, `action`, `view`, `extra`) VALUES
+(15, 8, 2, 'amizadeAceita', 1, ''),
+(16, 2, 8, 'amizadeAceita', 1, ''),
+(21, 8, 2, 'like', 1, '4'),
+(23, 8, 2, 'comentou', 1, '4'),
+(24, 8, 2, 'respondeu', 1, '12');
 
 -- --------------------------------------------------------
 
@@ -147,7 +150,7 @@ CREATE TABLE `tb_site.posts` (
 --
 
 INSERT INTO `tb_site.posts` (`id`, `images`, `content`, `data`, `likes`, `comments`, `id_user`) VALUES
-(4, '65a5476181c35.jpeg<-!->65a5476181f45.jpeg', 'Pega essa bomba', '15/01/2024', 0, 1, 2);
+(4, '65a5476181c35.jpeg<-!->65a5476181f45.jpeg', 'Pega essa bomba', '15/01/2024', 259351, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -168,7 +171,9 @@ CREATE TABLE `tb_site.reply.comments` (
 
 INSERT INTO `tb_site.reply.comments` (`id`, `id_comment`, `id_user`, `content`) VALUES
 (1, 12, 2, '<b>@samirg_sa</b> Teste'),
-(2, 12, 2, '<b>@samirg_sa</b> Funfando!!');
+(2, 12, 2, '<b>@samirg_sa</b> Funfando!!'),
+(3, 17, 8, '<b>@<a href=\"http://localhost/SocialMedia_2/home/perfil/Gih\">Gih</a></b> Respondi'),
+(9, 12, 8, '<b>@<a href=\"http://localhost/SocialMedia_2/home/perfil/samirg_sa\">samirg_sa</a></b> Respondi');
 
 -- --------------------------------------------------------
 
@@ -251,13 +256,13 @@ ALTER TABLE `tb_site.solicitacoes`
 -- AUTO_INCREMENT de tabela `tb_admin.likes`
 --
 ALTER TABLE `tb_admin.likes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de tabela `tb_admin.requestnewpassword`
 --
 ALTER TABLE `tb_admin.requestnewpassword`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `tb_admin.usuarios`
@@ -269,13 +274,13 @@ ALTER TABLE `tb_admin.usuarios`
 -- AUTO_INCREMENT de tabela `tb_site.comments`
 --
 ALTER TABLE `tb_site.comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de tabela `tb_site.notificacoes`
 --
 ALTER TABLE `tb_site.notificacoes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT de tabela `tb_site.posts`
@@ -287,7 +292,7 @@ ALTER TABLE `tb_site.posts`
 -- AUTO_INCREMENT de tabela `tb_site.reply.comments`
 --
 ALTER TABLE `tb_site.reply.comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de tabela `tb_site.solicitacoes`

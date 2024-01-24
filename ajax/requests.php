@@ -24,8 +24,8 @@ include('../config.php');
                 $addFriend = Mysql::conectar()->prepare('INSERT INTO `tb_site.solicitacoes` VALUES(null,?,?,?)');
                 $addFriend->execute([$_SESSION['id'],$_POST['id_to'],0]);
     
-                $notification = Mysql::conectar()->prepare('INSERT INTO `tb_site.notificacoes` VALUES(null,?,?,?,?)');
-                $notification->execute([$_SESSION['id'],$_POST['id_to'],'amizade',0]);
+                $notification = Mysql::conectar()->prepare('INSERT INTO `tb_site.notificacoes` VALUES(null,?,?,?,?,?)');
+                $notification->execute([$_SESSION['id'],$_POST['id_to'],'amizade',0,'']);
             }else{
                 $accept = Mysql::conectar()->prepare('UPDATE `tb_site.solicitacoes` SET status = ? WHERE id_to=? AND id_from=?');
                 $accept->execute([1,$_SESSION['id'],$_POST['id_to']]);
@@ -33,8 +33,8 @@ include('../config.php');
                 $changeNotificacation = Mysql::conectar()->prepare('UPDATE `tb_site.notificacoes` SET action=? AND view=? WHERE id_from = ? AND id_to = ?');
                 $changeNotificacation->execute(['amizadeAceita',0,$_POST['id_to'],$_SESSION['id']]);
 
-                $createNotification = Mysql::conectar()->prepare('INSERT INTO `tb_site.notificacoes` VALUES(null,?,?,?,?)');
-                $createNotification->execute([$_SESSION['id'],$_POST['id_to'],'amizadeAceita',0]);
+                $createNotification = Mysql::conectar()->prepare('INSERT INTO `tb_site.notificacoes` VALUES(null,?,?,?,?,?)');
+                $createNotification->execute([$_SESSION['id'],$_POST['id_to'],'amizadeAceita',0,'']);
             }
 
             die();
@@ -49,8 +49,8 @@ include('../config.php');
             $changeNotificacation = Mysql::conectar()->prepare('UPDATE `tb_site.notificacoes` SET action=? WHERE id_from = ? AND id_to = ?');
             $changeNotificacation->execute(['amizadeAceita',$_POST['id_from'],$_SESSION['id']]);
 
-            $createNotification = Mysql::conectar()->prepare('INSERT INTO `tb_site.notificacoes` VALUES(null,?,?,?,?)');
-            $createNotification->execute([$_SESSION['id'],$_POST['id_from'],'amizadeAceita',0]);
+            $createNotification = Mysql::conectar()->prepare('INSERT INTO `tb_site.notificacoes` VALUES(null,?,?,?,?,?)');
+            $createNotification->execute([$_SESSION['id'],$_POST['id_from'],'amizadeAceita',0,'']);
 
             die();
         }else if($_POST['action1'] == 'cancelAmizade'){
@@ -67,6 +67,12 @@ include('../config.php');
 
             $sql = Mysql::conectar()->prepare('UPDATE `tb_site.posts` SET likes = ? WHERE id = ?');
             $sql->execute([$_POST['likes'],$_POST['post']]);
+            if($_POST['ownerId'] != $_SESSION['id']){
+
+                //Notificação
+                $sql = Mysql::conectar()->prepare('INSERT INTO `tb_site.notificacoes` VALUES(null,?,?,?,?,?)');
+                $sql->execute([$_SESSION['id'],$_POST['ownerId'],'like',0,$_POST['post']]);
+            }
         }
         else if($_POST['action1'] == 'removeLike'){
             $sql = Mysql::conectar()->prepare('DELETE FROM `tb_admin.likes` WHERE id_user = ? AND id_post = ?');
@@ -74,6 +80,12 @@ include('../config.php');
 
             $sql = Mysql::conectar()->prepare('UPDATE `tb_site.posts` SET likes = ? WHERE id = ?');
             $sql->execute([$_POST['likes'],$_POST['post']]);
+
+            if($_POST['ownerId'] != $_SESSION['id']){
+            //Notificação
+            $sql = Mysql::conectar()->prepare('DELETE FROM `tb_site.notificacoes` WHERE id_from=? AND id_to=? AND action=? AND extra=?');
+            $sql->execute([$_SESSION['id'],$_POST['ownerId'],'like',$_POST['post']]);
+            }
         }else if($_POST['action1'] == 'postComment'){
             $sql = Mysql::conectar()->prepare('INSERT INTO `tb_site.comments` VALUES(null,?,?,?)');
             $sql->execute([$_POST['content'],$_POST['postId'],$_SESSION['id']]);
@@ -82,10 +94,19 @@ include('../config.php');
             $sql->execute([$_POST['commentQuant'],$_POST['postId']]);
             
 
+            if($_POST['ownerId'] != $_SESSION['id']){
+
+                //Notificação
+                $sql = Mysql::conectar()->prepare('INSERT INTO `tb_site.notificacoes` VALUES(null,?,?,?,?,?)');
+                $sql->execute([$_SESSION['id'],$_POST['ownerId'],'comentou',0,$_POST['postId']]);
+            }
+
             //Informações do usuario par inserção dinâmica
             $sql = Mysql::conectar()->prepare('SELECT user,img FROM `tb_admin.usuarios` WHERE id = ?');
             $sql->execute([$_SESSION['id']]);
             die(json_encode($sql->fetch()));
+
+
         }else if($_POST['action1'] == 'deletefriend'){
             $sql = Mysql::conectar()->prepare('DELETE FROM `tb_site.solicitacoes` WHERE (id_from = ? AND id_to = ?) OR (id_from = ? AND id_to = ?)');
             $sql->execute([$_POST['idfriend'],$_SESSION['id'],$_SESSION['id'],$_POST['idfriend']]);
@@ -95,6 +116,8 @@ include('../config.php');
             $sql->execute([$_POST['idfriend'],$_SESSION['id'],$_SESSION['id'],$_POST['idfriend']]);
             
             die();
+
+
         }else if($_POST['action1'] == 'deletePost'){
             //Deletar Fotos
             $sql = Mysql::conectar()->prepare('SELECT images FROM `tb_site.posts` WHERE id = ?');
@@ -116,6 +139,8 @@ include('../config.php');
             $sql = Mysql::conectar()->exec("DELETE FROM `tb_admin.likes` WHERE id_post = $_POST[idPost]");
 
             die();
+
+
         }else if($_POST['action1'] == 'searchFriend'){
             $sql = Mysql::conectar()->prepare("SELECT * FROM `tb_admin.usuarios` WHERE user LIKE '%$_POST[user]%'");
             $sql->execute();
@@ -149,31 +174,50 @@ include('../config.php');
             }
 
             die(json_encode($search));
+
+
         }else if($_POST['action1'] == 'checkCode'){
             if($_POST['code'] == $_SESSION['code'])
                 die('true');
             else
                 die('false');
             
+
         }else if($_POST['action1'] == 'createAccount'){
             $login = new controllers\loginController();
             $login->createAccount($_SESSION['temp_nome'],$_SESSION['temp_nascimento'],$_SESSION['temp_senha'],$_SESSION['temp_genero'],$_SESSION['temp_user'],$_SESSION['temp_email']);
             die();
+
+
         }else if($_POST['action1'] == 'addReply'){
             $content = '<b>@'.$_POST['repliedName'].'</b> '.$_POST['content'];
             $sql = Mysql::conectar()->prepare('INSERT INTO `tb_site.reply.comments` VALUES(null,?,?,?)');
             $sql->execute([$_POST['commentId'],$_SESSION['id'],$content]);
+            
+            if($_POST['ownerId'] != $_SESSION['id']){
+                //Notificação
+                $sql = Mysql::conectar()->prepare('INSERT INTO `tb_site.notificacoes` VALUES(null,?,?,?,?,?)');
+                $sql->execute([$_SESSION['id'],$_POST['ownerId'],'respondeu',0,$_POST['commentId']]);
+            }
             die();
         }else if($_POST['action1'] == 'getReplys'){
             $sql = Mysql::conectar()->prepare('SELECT * FROM `tb_site.reply.comments` WHERE id_comment = ?');
             $sql->execute([$_POST['commentId']]);
             $info = $sql->fetchAll();
             die(json_encode($info));
+
+
         }else if($_POST['action1'] == 'getUserInfo'){
             $sql = Mysql::conectar()->prepare('SELECT * FROM `tb_admin.usuarios` WHERE id = ?');
             $sql->execute([$_POST['userId']]);
             $info = $sql->fetchAll();
             die(json_encode($info));
+
+
+        }else if($_POST['action1'] == 'formatNumber'){
+            $view = site::formatNumber($_POST['number']);
+            $hide = site::formatNumberTitle($_POST['number']);
+            die(json_encode(['view'=>$view,'hide'=>$hide]));
         }
 
     //ACTION 2

@@ -87,7 +87,7 @@ form.newPost {
   left: 50%;
   z-index: 3;
   width: 60%;
-  max-width: 500px;
+  max-width: 600px;
   transform: translate(-50%, -50%);
   border-radius: 15px;
 }
@@ -122,7 +122,7 @@ form.newPost .fields {
   height: 300px;
 }
 form.newPost .fields .imageField {
-  width: 40%;
+  width: 50%;
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -134,6 +134,21 @@ form.newPost .fields .imageField label {
   font-size: 3rem;
   color: #ccc;
   cursor: pointer;
+}
+form.newPost .fields .imageField .images {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+form.newPost .fields .imageField .images .image {
+  flex-shrink: 0 ;
+  width: 90%;
+  margin-right: 10%;
+}
+form.newPost .fields .imageField .images .image img {
+  width: 100%;
+  max-width: 100%;
+  border-radius: 15px;
 }
 form.newPost .fields textarea {
   width: 60%;

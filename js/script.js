@@ -196,6 +196,7 @@ $(function(){
         e.preventDefault();
     })
 
+
     /*$('.createPostContainer').click(function(e){
         //e.preventDefault();
     })
@@ -209,7 +210,31 @@ $(function(){
 
     //Submit formulario
 
+    $('.imageField #images').change(function(e){
+        if(e.target.files[0]){
+            if($('.newPost').find('[name=acao]').attr('value') != 'seePreview'){
+                $('.newPost').find('[name=acao]').attr('value','seePreview')
+                $('.newPost').trigger('submit');
+            }
+        }
+    })
+    
+    
+    if($('.newPost').find('[name=acao]').attr('value') == 'seePreview' ){
+        $('.overlay').show();
+        $('.newPost').show();
+    }
+    
+    
+    $('.newPost').on('submit',function(){
+        if(typeof($('.newPost').find('.lock').html()) != 'undefined'){
+            return false;
+        }  
+    })
+
     $('.createPost').click(function(){
+        $('.lock').remove();
+        $('.newPost').find('[name=acao]').attr('value','postPhoto')
         $('.newPost').submit();
     })
 
@@ -353,6 +378,8 @@ $(function(){
         //feed
             var postWidth = $('.postSingle').width()
             var perfilWidth = $('.user').width();
+            var PreviewWidth = $('.images').width();
+
             
         
             //Avançar
@@ -415,6 +442,36 @@ $(function(){
                 scrollLeft:nextWidth+'px'
             },500)
         })
+
+        //PreviewPost
+        //Avançar
+        $('.imageField .right').click(function(){
+            let images = $(this).parent().parent().find('.images')
+            let actWidth =  images.scrollLeft();
+            let maxWidth = images[0].scrollWidth;
+            let nextWidth = actWidth + PreviewWidth;
+            if(nextWidth > maxWidth){
+                nextWidth = maxWidth;
+            }
+            images.animate({
+                scrollLeft:nextWidth+'px'
+            },500)
+        })
+
+        //Voltar
+
+        $('.imageField .left').click(function(){
+            let images = $(this).parent().parent().find('.images')
+            let actWidth =  images.scrollLeft();;
+            let nextWidth = actWidth - PreviewWidth;
+            if(nextWidth < 0){
+                nextWidth = 0;
+            }
+            images.animate({
+                scrollLeft:nextWidth+'px'
+            },500)
+        })
+    
     
 
     //Contador de caracteres textarea

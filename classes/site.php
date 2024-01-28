@@ -58,7 +58,9 @@
             $nomeArquivo = uniqid().".".$formatoArquivo[count($formatoArquivo) - 1];
 
             if($destiny == 'pre'){
-                mkdir(BASE_DIR.'/preUploads/'.$_SESSION['id']);
+                if(!is_dir(BASE_DIR.'/preUploads/'.$_SESSION['id'])){
+                    mkdir(BASE_DIR.'/preUploads/'.$_SESSION['id']);                   
+                }
                 if(move_uploaded_file($file['tmp_name'],BASE_DIR.'/preUploads/'.$_SESSION['id'].'/'.$nomeArquivo))
                     return $nomeArquivo;
                 else
@@ -73,19 +75,35 @@
 
         public static function confirmUpload(){
             $arquivo = scandir(BASE_DIR.'/preUploads/'.$_SESSION['id']);
-            $arquivo = $arquivo[count($arquivo) - 1];
-            rename(BASE_DIR.'/preUploads/'.$_SESSION['id'].'/'.$arquivo , BASE_DIR.'/uploads/'.$arquivo);
+            foreach ($arquivo as $key => $value) {
+                if($value == '.' || $value == '..'){
+                    continue;
+                }
+                rename(BASE_DIR.'/preUploads/'.$_SESSION['id'].'/'.$value , BASE_DIR.'/uploads/'.$value);
+            }
             rmdir(BASE_DIR.'/preUploads/'.$_SESSION['id']);
+            
         }
 
-        public static function uploadFiles($name,$tmp_name){
+        public static function uploadFiles($name,$tmp_name, $destiny = 'full'){
             $formatoArquivo = explode(".",$name);
             $nomeArquivo = uniqid().".".$formatoArquivo[count($formatoArquivo) - 1];
+
+            if($destiny == 'full'){
 
             if(move_uploaded_file($tmp_name,BASE_DIR.'/uploads/'.$nomeArquivo))
                 return $nomeArquivo;
             else
                 return false;
+            }else{
+                if(!is_dir(BASE_DIR.'/preUploads/'.$_SESSION['id'])){
+                    mkdir(BASE_DIR.'/preUploads/'.$_SESSION['id']);                   
+                }
+            if(move_uploaded_file($tmp_name,BASE_DIR.'/preUploads/'.$_SESSION['id'].'/'.$nomeArquivo))
+                return $nomeArquivo;
+            else
+                return false;
+            }
         }
 
         public static function deleteFile($file,$destiny = 'full'){

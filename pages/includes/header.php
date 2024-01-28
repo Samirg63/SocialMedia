@@ -18,19 +18,43 @@
     <div class="createPostContainer">
 
         <form method="post" class="newPost" enctype="multipart/form-data">
+            <?php if(isset($_POST['acao']) && $_POST['acao'] == 'seePreview' && isset($_SESSION['previewImgs'])){echo '<div class="lock" style="display:none;">-</div>';}?>
             <div class="top">
                 <button class="closePopUp"><i class="fa-solid fa-x"></i></button>
                 <h3>Criar nova publicação</h3>
-                <input class="createPost" type="submit" name="acao" value="Publicar">
-            </div>    
+                <input class="createPost" type="submit" name="" value="Publicar">
+            </div> 
+            
+            
             <div class="fields flex">
-                <div class="imageField flex">    
-                    <label for="images"><i class="fa-regular fa-images"></i></label>
-                    <h5>Adicione imagens</h5>
-                    <input id="images" type="file" name="fotos[]" style="display:none;" multiple="multiple">
+                <div class="imageField flex"> 
+                    <input type="hidden" name="acao" value="<?php if(isset($_POST['acao']) && $_POST['acao'] == 'seePreview'){ echo 'seePreview';}else{echo 'acaoNoPhoto';}   ?>">
+                    <?php
+                    if(!isset($_POST['acao'])){
+                        ?>  
+                        <label for="images"><i class="fa-regular fa-images"></i></label>
+                        <h5>Adicione imagens</h5>
+                        <input id="images" type="file" name="fotos[]" style="display:none;" multiple="multiple">
+                    <?php }else{
+                        $images = $_SESSION['previewImgs'];
+                        ?>
+                        <div class="images flex <?php if(count($images) >= 1){echo 'carrosel';}?>">
+                         <?php foreach ($images as $key => $valueImg) { ?>
+
+                            <div class="image">
+                                <img src="<?=PATH.'preUploads/'.$_SESSION['id'].'/'.$valueImg?>">
+                            </div>
+
+                            <?php } ?>
+                        </div>
+                        <?php }?>
                 </div>
+
+
                 <textarea name="conteudo" placeholder="Diga o que pensa..."></textarea>
             </div>
+
+
         </form>
         
     </div>

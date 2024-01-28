@@ -52,7 +52,7 @@ form.newPost{
     left: 50%;
     z-index: 3;
     width: 60%;
-    max-width: 500px;
+    max-width: 600px;
     transform: translate(-50%,-50% );
     border-radius: 15px;
     
@@ -89,7 +89,7 @@ form.newPost{
         padding: .8rem;
         height: 300px;
         .imageField{
-            width: 40%;
+            width: 50%;
             justify-content: center;
             align-items: center;
             flex-direction: column;
@@ -102,6 +102,25 @@ form.newPost{
                 font-size: 3rem;
                 color: #ccc;
                 cursor: pointer;
+            }
+
+            .images{
+                width: 100%;
+                position: relative;
+                overflow: hidden;
+                   
+                
+                .image{
+                    flex-shrink: 0 ;
+                    width: 90%;
+                    margin-right: 10%;
+
+                    img{
+                        width: 100%;
+                        max-width: 100%;
+                        border-radius: 15px;
+                    }
+                }
             }
         }
         textarea{

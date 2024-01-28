@@ -4,6 +4,8 @@
     class feedController{
 
         public function index(){
+            
+
             \views\mainview::pureRender('feed');
         }
     }

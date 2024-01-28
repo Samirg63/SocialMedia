@@ -11,7 +11,58 @@
                 \site::redirect(PATH);
                 die();
             }
-            if(isset($_POST['conteudo'])){
+
+            if(isset($_POST['acao']) && $_POST['acao'] == 'seePreview'){
+                //echo '<script>alert("teste")</script>';
+                $images = $_FILES['fotos'];
+                $allImages = [];
+                for ($i=0; $i < count($images['type']); $i++) { 
+                    $right = \site::imagensValidas($images['type'][$i],$images['size'][$i]);
+                    
+                    if($right){                      
+                            $allImages[] = \site::uploadFiles($images['name'][$i],$images['tmp_name'][$i],'pre');
+                    }else
+                        break;
+                }
+                if(!$right){
+                    echo '<script>alert("Imagens inválidas!")</script>';
+                }else{
+                   $_SESSION['previewImgs'] = $allImages;
+                }
+                
+            }
+
+            if(isset($_POST['acao']) && $_POST['acao'] == 'postPhoto'){
+                $conteudo = $_POST['conteudo'];
+                $images = $_SESSION['previewImgs'];
+                $imgString = '';
+                $first = true;
+                
+                //make img string
+                foreach ($_SESSION['previewImgs'] as $key => $value) {
+                    if($first){
+                        $imgString .= $value;
+                        $first = false;
+                    }else{
+                        $imgString .= '<-!->';
+                        $imgString .= $value;
+                    }
+                }
+                
+            
+                
+                    //Criar post
+                    $sql = \Mysql::conectar()->prepare('INSERT INTO `tb_site.posts` VALUES(null,?,?,?,?,?,?)');
+                    if($sql->execute([$imgString,$conteudo,date('d/m/Y',time()),0,0,$_SESSION['id']])){
+                        \site::confirmUpload();
+                    }
+                    
+                    \site::redirect(PATH_HOME);
+                    die();
+                
+            }
+
+            if(isset($_POST['acao']) && $_POST['acao'] == 'postNoPhoto'){
                 $conteudo = $_POST['conteudo'];
                 $images = $_FILES['fotos'];
                 $imgString = '';

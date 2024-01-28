@@ -8,6 +8,7 @@
                 INNER JOIN `tb_site.posts`
                 ON `tb_site.solicitacoes`.id_from = `tb_site.posts`.id_user OR `tb_site.solicitacoes`.id_to = `tb_site.posts`.id_user
                 WHERE (id_from = ? AND status = ?) OR (id_to = ? AND status = ?)
+                ORDER BY data DESC
             ');
             $sql->execute([$_SESSION['id'],1,$_SESSION['id'],1]);
             if($sql->rowCount() == 0){
@@ -15,7 +16,7 @@
                 $sql->execute([$_SESSION['id']]);
             }
             
-            return array_unique($sql->fetchAll());
+            return $sql->fetchAll();
         }
 
         public static function getReplyQuantity($id){

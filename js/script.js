@@ -210,7 +210,7 @@ $(function(){
 
     //Submit formulario
 
-    $('.imageField #images').change(function(e){
+    $('body').on('change', '.imageField #images',function(e){
         if(e.target.files[0]){
             if($('.newPost').find('[name=acao]').attr('value') != 'seePreview'){
                 $('.newPost').find('[name=acao]').attr('value','seePreview')
@@ -224,6 +224,44 @@ $(function(){
         $('.overlay').show();
         $('.newPost').show();
     }
+
+    //Botão de remover
+    $('body').on('mouseover','.imageField .image', function(){
+        $(this).find('.remove').show();
+    })
+
+    $('body').on('mouseout','.imageField .image', function(){
+        $(this).find('.remove').hide();
+    })
+
+    //funionalidade remover
+    $('body').on('click','.imageField .remove',function(){
+        let imageName = $(this).parent().find('img').attr('src');
+        let container = $(this);
+        $.ajax({
+            url:path+'ajax/requests.php',
+            method:'post',
+            data:{action1:'removeFromImages',img:imageName}
+        }).done(function(){
+
+            container.parent().remove();
+            
+            
+            if($('.imageField').find('.image').length == 1){
+                $('.imageField').find('.carrosselBtn').remove();
+            }else if($('.imageField').find('.image').length == 0){
+                $('.imageField').html(`
+                <input type="hidden" name="acao" value="acaoNoPhoto">
+                <label for="images"><i class="fa-regular fa-images"></i></label>
+                <h5>Adicione imagens</h5>
+                <input id="images" type="file" name="fotos[]" style="display:none;" multiple="multiple">`)
+                $('.lock').remove();
+            }
+        })
+
+        
+        
+    })
     
     
     $('.newPost').on('submit',function(){

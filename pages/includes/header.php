@@ -38,10 +38,11 @@
                     <?php }else{
                         $images = $_SESSION['previewImgs'];
                         ?>
-                        <div class="images flex <?php if(count($images) >= 1){echo 'carrosel';}?>">
+                        <div class="images flex <?php if(count($images) > 1){echo 'carrosel';}?>">
                          <?php foreach ($images as $key => $valueImg) { ?>
 
                             <div class="image">
+                                <button class="remove">X</button>
                                 <img src="<?=PATH.'preUploads/'.$_SESSION['id'].'/'.$valueImg?>">
                             </div>
 

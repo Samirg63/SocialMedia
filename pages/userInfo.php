@@ -16,6 +16,9 @@
                 <div class="options">
                     <ul>
                         <li><button class="deletePost"><i class="fa-regular fa-trash-can"></i><span>Apagar post</span></button></li>
+                        <li><button class="editPost"><a href="<?=PATH_HOME?>perfil?editPost=<?=$value['id']?>">
+                            <i class="fa-solid fa-pen"></i><span>Editar post</span></button></li>
+                        </a>
                     </ul>
                 </div>
             <div class="user flex">

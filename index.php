@@ -1,6 +1,6 @@
 <?php
     include('config.php');
-
+    
     
     //Deletar tokens de nova senha;
     site::deleteTokens();

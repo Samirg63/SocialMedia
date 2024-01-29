@@ -218,6 +218,12 @@ include('../config.php');
             $view = site::formatNumber($_POST['number']);
             $hide = site::formatNumberTitle($_POST['number']);
             die(json_encode(['view'=>$view,'hide'=>$hide]));
+        }else if($_POST['action1'] == 'removeFromImages'){
+            $imageName = explode('/',$_POST['img']);
+            $imageName = $imageName[count($imageName) - 1];
+            $key = array_search($imageName,$_SESSION['previewImgs']);
+            unset($_SESSION['previewImgs'][$key]);
+            die();
         }
 
     //ACTION 2

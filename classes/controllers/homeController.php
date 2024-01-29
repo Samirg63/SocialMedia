@@ -96,6 +96,12 @@
                     die();
                 }
             }
+
+            if(isset($_GET['editPost'])){
+                \views\mainView::pureRender('postEditor', [] ,'component');
+            }
+
+
             \views\mainview::render('home');
         }
     }

@@ -16,5 +16,12 @@
             $sql->execute([$_SESSION['id']]);
             return $sql->fetchAll();
         }
+
+        public static function getPostInfo($id){
+            $sql = \Mysql::conectar()->prepare('SELECT * FROM `tb_site.posts` WHERE id = ?');
+            $sql->execute([$id]);
+
+            return $sql->fetch();
+        }
     }
 ?>

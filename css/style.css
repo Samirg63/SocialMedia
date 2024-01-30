@@ -254,6 +254,32 @@ section.forgotPassword form .passwordBox input {
   border-radius: 5px;
   border: 1px solid #ccc;
 }
+.top {
+  padding: .8rem;
+  border-bottom: 1px solid #454545;
+  text-align: center;
+  position: relative;
+}
+.top button {
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font-size: 1.2rem;
+  position: absolute;
+  left: .8rem;
+  top: .8rem;
+}
+.top input {
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  color: #5085E8;
+  font-weight: bold;
+  font-size: 1rem;
+  position: absolute;
+  right: .8rem;
+  top: 1rem;
+}
 .postSingle {
   width: 100%;
   background-color: white;
@@ -352,6 +378,23 @@ section.forgotPassword form .passwordBox input {
   width: 264px;
   height: 264px;
   margin-right: 20px;
+  position: relative;
+}
+.postSingle .info .image .remove {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: 0;
+  font-weight: bold;
+  font-size: 1.2rem;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: #c25668;
+  color: white;
+  cursor: pointer;
+  display: none;
+  opacity: .8;
 }
 .postSingle .info .image img {
   width: 100%;

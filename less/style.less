@@ -244,6 +244,34 @@ section.forgotPassword{
     }
 }
 
+.top{
+    padding: .8rem;
+    border-bottom: 1px solid #454545;
+    text-align: center;
+    position: relative;
+
+    button{
+        background: transparent;
+        border: 0;
+        cursor: pointer;
+        font-size: 1.2rem;
+        position: absolute;
+        left: .8rem;
+        top: .8rem;
+    }
+    input{
+        background: transparent;
+        border: 0;
+        cursor: pointer;
+        color: #5085E8;
+        font-weight: bold;
+        font-size: 1rem;
+        position: absolute;
+        right: .8rem;
+        top: 1rem;
+    }
+}
+
 .postSingle{
     width: 100%;
     background-color: white;
@@ -319,6 +347,9 @@ section.forgotPassword{
             border-radius: 50%;
             margin-right: 20px;
 
+
+            
+
             img{
                 width: 100%;
                 max-width: 100%;
@@ -360,6 +391,24 @@ section.forgotPassword{
             width: 264px;
             height: 264px;
             margin-right: 20px;
+            position: relative;
+
+            .remove{
+                position: absolute;
+                top: 0;
+                right: 0;
+                border: 0;
+                font-weight: bold;
+                font-size: 1.2rem;
+                width: 25px;
+                height: 25px;
+                border-radius: 50%;
+                background-color:rgb(194, 86, 104);
+                color: white;
+                cursor: pointer;
+                display: none;
+                opacity: .8;
+            }
             
             img{
                 width: 100%;

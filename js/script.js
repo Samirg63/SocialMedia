@@ -3,6 +3,7 @@ $(function(){
 
     const path = $('path').attr('path');
     const userId = $('user').attr('userId');
+    var deletes = [];
 
     //MOSTRAR SENHA
     $('.showPassword').click(function(){
@@ -187,6 +188,7 @@ $(function(){
         $('openpreview').removeAttr('open');
         cleanPreUploads();
         fecharPopUp();
+        deletes = [];
     })
     
    
@@ -196,17 +198,6 @@ $(function(){
         e.preventDefault();
     })
 
-
-    /*$('.createPostContainer').click(function(e){
-        //e.preventDefault();
-    })
-
-    $('.editFotoContainer').click(function(e){
-        //e.preventDefault();
-    })
-    $('.editBioContainer').click(function(e){
-        //e.preventDefault();
-    })*/
 
     //Submit formulario
 
@@ -226,15 +217,62 @@ $(function(){
     }
 
     //Botão de remover
-    $('body').on('mouseover','.imageField .image', function(){
+    $('body').on('mouseover','.imageField .image, .postSingle .image', function(){
         $(this).find('.remove').show();
     })
 
-    $('body').on('mouseout','.imageField .image', function(){
+    $('body').on('mouseout','.imageField .image, .postSingle .image', function(){
         $(this).find('.remove').hide();
     })
 
     //funionalidade remover
+
+    //edit post
+    $('body').on('click','.postSingle .remove',function(){
+        let image = $(this).parent().find('img').attr('src')
+        image = image.split('/')
+        let position = image.length - 1
+        deletes.push(image[position]);
+        $(this).parent().remove();
+    })
+
+    //editar Post
+    $('.editPost').click(function(){
+        let conteudo = $('.float').find('[name=conteudo]').val();
+        let imgString = '';
+        let postId = $('[name=postId]').val();
+        let first = true;
+        for (let i = 0; i < $('.float .image').length; i++) {
+            let img = $('.float .image').eq(i).find('img').attr('src')
+            img = img.split('/')
+            let position = img.length - 1
+            if(first){
+                imgString += img[position]
+                first = false;
+            }else{
+                imgString += '<-!->'
+                imgString += img[position]
+            }
+            
+        }
+        
+        $.ajax({
+            url:path+'ajax/requests.php',
+            method:'post',
+            data:{action1:'editPost',conteudo:conteudo,img:imgString,deletes:deletes,postId:postId}
+        }).done(function(){
+            console.log(deletes);
+            if($('[name=page]').val() == 'perfil'){
+                window.location.href=path+'home/perfil';
+            }else{
+                window.location.href=path+'home';
+            }
+        })
+    })
+  
+    
+
+    //preview
     $('body').on('click','.imageField .remove',function(){
         let imageName = $(this).parent().find('img').attr('src');
         let container = $(this);

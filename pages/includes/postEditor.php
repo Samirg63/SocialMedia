@@ -1,9 +1,21 @@
 <div class="overlayFix"></div>
+<?php
+$url = $_GET['url'];
+$url = explode('/',$url);
+$page = $url[count($url) - 1];
+?>
+<input type="hidden" name="page" value="<?=$page?>">
+<input type="hidden" name="postId" value="<?=$_GET['editPost']?>">
 
             <?php
                 $value = models\homeModel::getPostInfo($_GET['editPost']);
             ?>
 <div class="float" style="width: 900px;">
+    <div class="top">
+                <button class="closePopUp"><i class="fa-solid fa-x"></i></button>
+                <h3>Editar publicação</h3>
+                <input class="editPost" type="submit" name="" value="Editar">
+            </div> 
     <div class="postSingle">
 
         <div class="user flex">
@@ -30,11 +42,12 @@
                 if(count($images) != 0){
                     ?>
 
-<div class="images flex <?php if(count($images) >= 3){echo 'carrosel';}?>">
+                <div class="images flex <?php if(count($images) >= 3){echo 'carrosel';}?>">
                     <?php foreach ($images as $key => $valueImg) {
                         ?>
 
                     <div class="image">
+                        <button class="remove">X</button>
                         <img src="<?=PATH.'uploads/'.$valueImg?>">
                     </div>
 

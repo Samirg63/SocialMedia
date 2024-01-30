@@ -224,6 +224,16 @@ include('../config.php');
             $key = array_search($imageName,$_SESSION['previewImgs']);
             unset($_SESSION['previewImgs'][$key]);
             die();
+        }else if($_POST['action1'] == 'editPost'){
+            $sql = Mysql::conectar()->prepare('UPDATE `tb_site.posts` SET content=? , images = ? WHERE id = ?');
+            if($sql->execute([$_POST['conteudo'],$_POST['img'],$_POST['postId']])){
+                if(isset($_POST['deletes'])){
+                    foreach ($_POST['deletes'] as $key => $value) {
+                        @unlink(BASE_DIR.'/uploads/'.$value);
+                    }
+                }
+            }
+            die();
         }
 
     //ACTION 2

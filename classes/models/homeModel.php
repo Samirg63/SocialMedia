@@ -5,7 +5,7 @@
             $sql = \Mysql::conectar()->prepare('SELECT * FROM `tb_site.notificacoes` WHERE id_to = ? AND view = ?');
             $sql->execute([$_SESSION['id'],0]);
             if($sql->rowCount() > 0){
-                return true;
+                return $sql->rowCount();
             }else{
                 return false;
             }

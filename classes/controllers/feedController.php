@@ -6,7 +6,7 @@
         public function index(){
             
 
-            \views\mainview::pureRender('feed');
+            \views\mainview::pureRender('feed',['css'=>['feed'],'component'=>['postSingle','carrossel']]);
         }
     }
 ?>

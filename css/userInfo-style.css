@@ -1,0 +1,118 @@
+section.userInfo > h2 {
+  color: #454545;
+}
+section.userInfo > .flex {
+  width: 100%;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+section.userInfo div.ultimosPosts {
+  width: 64% !important;
+  margin-top: 30px;
+}
+section.userInfo div.ultimosPosts form {
+  margin-bottom: 15px;
+  align-items: center;
+  justify-content: space-between;
+}
+section.userInfo div.ultimosPosts form textarea {
+  height: 60px;
+  width: 90%;
+  border-radius: 15px;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  resize: none;
+}
+section.userInfo div.ultimosPosts form label {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  cursor: pointer;
+  background-color: #454545;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+section.userInfo div.ultimosPosts .info {
+  position: relative;
+}
+section.userInfo div.ultimosPosts .info .carrosselBtn {
+  top: 55% !important;
+  width: 100% !important;
+}
+section.userInfo .commentActions {
+  margin-left: 55px;
+}
+section.userInfo .commentActions button {
+  font-size: 1.3rem !important;
+  color: #969aa0 !important;
+  margin-right: 10px !important;
+}
+section.userInfo .commentActions .like-comment i {
+  margin-right: 5px !important;
+}
+section.userInfo .commentActions .show {
+  font-size: 1rem !important;
+  text-decoration: underline;
+}
+section.userInfo .replyComment {
+  margin-top: 15px;
+}
+section.myFriends {
+  width: 34%;
+  margin-top: 30px;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 10px;
+}
+section.myFriends > p {
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #454545;
+}
+section.myFriends .amigos {
+  text-align: center;
+}
+section.myFriends .amigos .amigoSingle {
+  align-items: center;
+  margin-bottom: 20px;
+}
+section.myFriends .amigos .amigoSingle .amigoImg {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background-color: #ccc;
+  margin-right: 15px;
+}
+section.myFriends .amigos .amigoSingle .amigoImg img {
+  width: 100%;
+  max-width: 100%;
+  border-radius: 50%;
+}
+section.myFriends .amigos .amigoSingle .amigoInfo {
+  text-align: left;
+  margin-left: 10px;
+}
+section.myFriends .amigos .amigoSingle .amigoInfo p {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+section.myFriends .amigos .amigoSingle .amigoInfo p a {
+  color: #454545;
+  text-decoration: none;
+}
+section.myFriends .amigos .amigoSingle .amigoInfo p a:hover {
+  text-decoration: underline;
+}
+section.myFriends .amigos .amigoSingle .amigoInfo span {
+  color: #454545;
+  opacity: 44%;
+}
+section.myFriends .amigos a {
+  margin-top: 15px;
+  opacity: 80%;
+  color: #5085E8;
+  text-decoration: none;
+  font-weight: bold;
+}

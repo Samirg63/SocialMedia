@@ -1,6 +1,9 @@
 <?php
     //checar se o perfil existe
-    $user = $arr[3];
+    addComponents($arr2['component']);
+    addCss($arr2['css']);
+    $user = $arr2[0][3];
+
     $sql = Mysql::conectar()->prepare('SELECT * FROM `tb_admin.usuarios` WHERE user = ?');
     $sql->execute([$user]);
     if($sql->rowCount() == 0){
@@ -37,7 +40,7 @@
     </div>
     <?php
     //ativar carrosel com 6 imagens
-     $fotosStr = site::getFotos();
+     $fotosStr = site::getFotos($infoPerfil['id']);
      $fotos = [];
      foreach ($fotosStr as $key => $value) {
          $fotoStrSingle = explode('<-!->',$value['images']);

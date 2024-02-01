@@ -1,0 +1,1 @@
+.overlay,.overlayFix{display:none;width:100%;height:100%;position:fixed;z-index:2;background-color:rgba(0,0,0,.4)}.overlayFix{display:block}form.newPost{display:none;width:60%;max-width:600px}

@@ -102,7 +102,7 @@
             }
 
 
-            \views\mainview::render('home');
+            \views\mainview::render('home',['css'=>['home']]);
         }
     }
 ?>

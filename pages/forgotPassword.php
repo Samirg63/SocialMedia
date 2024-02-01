@@ -46,3 +46,6 @@
     <?php } ?>
 </section>
 <script src="<?=PATH?>js/script.js"></script>
+<script>
+    document.title="Redefina a sua senha!";
+</script>

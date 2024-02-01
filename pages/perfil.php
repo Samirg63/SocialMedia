@@ -1,9 +1,11 @@
 
 <?php
     $infoPerfil = models\perfilModel::getInfoPerfil();
+    addCss($arr2['css']);
+    addComponents($arr2['component']);
 ?>
 <div class="editFormContainer">
-    <form class="editFotoForm" method="post" enctype="multipart/form-data">
+    <form class="editFotoForm form-primary" method="post" enctype="multipart/form-data">
         <div class="top">
             <?php if(!isset($_FILES['foto'])){?><button class="closePopUp"><i class="fa-solid fa-x"></i></button><?php }else{?><button class="cancel closePopUp">Cancelar</button> <?php } ?>
         <h3>Mudar Foto de perfil</h3>
@@ -24,7 +26,7 @@
 </div>
 
 <div class="editPerfilContainer">
-    <form class="editPerfilForm" method="post" >
+    <form class="editPerfilForm form-primary" method="post" >
         <div class="top">
            <button class="closePopUp"><i class="fa-solid fa-x"></i></button>
             <h3>Editar Perfil</h3>

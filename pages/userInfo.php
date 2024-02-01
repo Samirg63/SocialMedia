@@ -1,4 +1,6 @@
-
+<?php
+    addCss($arr2['css']);
+?>
 <section class="userInfo container">
     <h2>Últimas publicações</h2>
 

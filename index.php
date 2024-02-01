@@ -1,9 +1,9 @@
 <?php
     include('config.php');
     
-    
     //Deletar tokens de nova senha;
     site::deleteTokens();
+    
 
     $loginController = new controllers\loginController();
     $forgotPasswordController = new controllers\forgotPasswordController();
@@ -26,6 +26,7 @@
         $forgotPasswordController->index();
         die();
     });
+
 
     Router::get('/',function(){ 
         site::redirect(PATH_HOME);

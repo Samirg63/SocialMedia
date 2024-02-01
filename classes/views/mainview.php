@@ -8,7 +8,8 @@
             include('pages/includes/'.$footer.'.php');
         }
 
-        public static function pureRender($fileName, $arr = [], $type = 'page'){
+        public static function pureRender($fileName, $arr2 = [], $type = 'page'){
+                        
             if($type == 'component'){
                 include('pages/includes/'.$fileName.'.php');
             }else{

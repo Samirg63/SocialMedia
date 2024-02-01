@@ -34,8 +34,8 @@
                 //Enviar email
                 $token = uniqid();
                 if($this->enviarEmail($_POST['confirmEmail'],$token)){
-                    $sql = \Mysql::conectar()->prepare('INSERT INTO `tb_admin.requestNewPassword` VALUES(null,?,?)');
-                    $sql->execute([$token,date('Y-m-d',time())]);
+                    $sql = \Mysql::conectar()->prepare('INSERT INTO `tb_admin.requestNewPassword` VALUES(null,?,?,?)');
+                    $sql->execute([$token,$_POST['confirmEmail'],date('Y-m-d',time())]);
                 }
             }
 
@@ -59,7 +59,7 @@
                 }
             }
 
-            \views\mainview::render('forgotPassword');
+            \views\mainview::render('forgotPassword',['css'=>['forgotPassword']]);
         }
     }
 ?>

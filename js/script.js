@@ -386,6 +386,7 @@ $(function(){
     //Abrir/fechar notificações
 
     $('.openNotification').click(function(){
+        document.title = "Social Media";
         $('.full').hide();
         $('.resumido').show();
         $('.notifications').show();

@@ -4,7 +4,7 @@
     class userInfoController{
 
         public function index(){
-            \views\mainview::pureRender('userInfo');
+            \views\mainview::pureRender('userInfo',['css'=>['userInfo']]);
         }
     }
 ?>

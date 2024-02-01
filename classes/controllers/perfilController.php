@@ -42,12 +42,12 @@
             if(isset($par)){
 
                 if($par[3] != 'amigos' && $par[3] != 'addAmigos'){
-                    \views\mainview::pureRender('seeUser',$par);
+                    \views\mainview::pureRender('seeUser',['css'=>['userInfo','seeUser'],'component'=>['postSingle','carrossel'],$par]);
                 }else{
-                    \views\mainview::pureRender('perfil');
+                    \views\mainview::pureRender('perfil',['css'=>['perfil','userInfo','seeUser'],'component'=>['formulario','carrossel','postSingle','passwordBox']]);
                 }
             }else{
-                \views\mainview::pureRender('perfil');
+                \views\mainview::pureRender('perfil',['css'=>['perfil','seeUser','userInfo'],'component'=>['formulario','carrossel','postSingle','passwordBox']]);
             }
         }
     }

@@ -1,3 +1,4 @@
+<?php site::checkLogin();?>
 <section class="main flex">
     <aside class="mainAside">
      <div class="full">

@@ -1,0 +1,172 @@
+section.main{
+    aside.notifications{
+        display: none;
+        background-color: #EAEAF4;
+        height: 100vh;
+        width: 400px;
+        position: fixed;
+        left: 100px;
+        top: 0;
+        padding: 4.5rem 2rem;
+        z-index: 2;
+        border-left: 2px solid rgba(85, 85, 85,.2);
+
+        h2{
+            margin-bottom: 40px;
+        }
+
+        .notificacaoSingle{
+            align-items: center;
+            border-bottom: 2px solid white;
+            padding:10px 0;
+            width: 100%;
+            .img{
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background-color: #ccc;
+                margin-right: 15px;
+
+                img{
+                    width: 100%;
+                    max-width: 100%;
+                    border-radius: 50%;
+                }
+            }
+            p{
+                font-weight: bold;
+            }
+
+            .actionBtn{
+                margin-top: 10px;
+                button{
+                    width: 25px;
+                    height: 25px;
+                    margin-right: 5px;
+                    border-radius: 10px;
+                    border: 0;
+                    color: #EBEBEB;
+                    cursor: pointer;
+                }
+
+                .accept{
+                    background-color: rgb(117, 240, 73);
+                }
+                .cancel{
+                    background-color: rgb(233, 100, 100);
+                }
+            }
+        }
+    }
+    aside.mainAside{
+        position: fixed;
+        width: 300px;
+        text-align: center;
+        padding: 2rem 4rem;
+
+        h1{
+            color: #444294;
+            font-size: 1.6rem;
+        }
+
+        .menu{
+            margin-top: 30px;
+            text-align: left;
+            font-family: 'Raleway' !important;
+
+            p{
+                font-weight: bold;
+                color: #454545;
+            }
+
+            ul{
+                list-style: none;
+
+                li{
+                    margin: 25px 0;
+
+                    &.selected{
+                        font-weight: bold;
+                    }
+
+                    a{
+                        color: #454545;
+                        text-decoration: none;
+                        display: flex;
+                        align-items: center;
+
+                        .group{position: relative;}
+
+                        .badge{
+                            position: absolute;
+                            top: 0;
+                            right: 0;
+                            transform: translate(-50%,-50%);
+                            width: 9px;
+                            height: 9px;
+                            border-radius: 50%;
+                            background-color: rgb(233, 100, 100);
+                        }
+
+                        i{
+                            margin-right: 10px;
+                            font-size: 1.3rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    .content{
+        margin-left: 300px;
+        >.flex{
+            align-items: flex-start;
+            justify-content: space-between;
+        }
+
+        width: 80%;
+        padding: 2rem 0;
+
+        
+
+        section.myPhotos{
+            width: 34%;
+            background-color: white;
+            padding: 1rem;
+            border-radius: 10px;
+
+            >p{
+                font-weight: bold;
+
+            }
+            .images{
+                flex-wrap: wrap;
+                justify-content: space-between;
+                margin: 10px 0;
+
+                
+                .big{
+                    width: 100% !important;
+                }
+                
+                .image{
+                    width: 167px;
+                    height: 167px;
+                    background-color: #ccc;
+                    margin-bottom: 15px;
+
+                    img{
+                        width: 100%;
+                        max-width: 100%;
+                        height: 100%;
+                        max-height: 100%;
+                        border-radius: 5px;
+                    }
+                }
+            }
+        }
+
+        
+    }
+}

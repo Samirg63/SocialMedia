@@ -1,3 +1,6 @@
+<?php
+    addComponents($arr2['component']);
+?>
 <div class="overlayFix"></div>
 <section class="autenticateBox flex" >
     <div class="centerbox">

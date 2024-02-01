@@ -1,0 +1,223 @@
+.postSingle {
+  width: 100%;
+  background-color: white;
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 25px;
+  position: relative;
+}
+.postSingle .openOptions {
+  position: absolute;
+  right: 1rem;
+  background: transparent;
+  border: 0;
+  color: #454545;
+  font-size: 1.2rem;
+  opacity: 44%;
+  cursor: pointer;
+  display: none;
+}
+.postSingle .options {
+  background-color: #282828;
+  width: 30%;
+  padding: .3rem;
+  border-radius: 20px;
+  position: absolute;
+  right: calc(-15% + 2rem);
+  display: none;
+  top: 3rem;
+}
+.postSingle .options ul {
+  list-style: none;
+  list-style-position: inside;
+}
+.postSingle .options ul li {
+  text-align: center;
+}
+.postSingle .options ul li a {
+  color: #D3D8E0;
+  text-decoration: none;
+}
+.postSingle .options ul li button {
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  color: #D3D8E0;
+}
+.postSingle .options ul li button i {
+  margin-right: 15px;
+}
+.postSingle .user {
+  align-items: center;
+}
+.postSingle .user .userInfo a {
+  color: black;
+  text-decoration: none;
+}
+.postSingle .user .userInfo a:hover {
+  text-decoration: underline;
+}
+.postSingle .user .userInfo span {
+  color: #454545;
+  opacity: 44%;
+}
+.postSingle .user .img {
+  background-color: #ccc;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+.postSingle .user .img img {
+  width: 100%;
+  max-width: 100%;
+  border-radius: 50%;
+}
+.postSingle .info {
+  margin: 25px 0;
+  position: relative;
+}
+.postSingle .info .carrosselBtn {
+  top: 55% !important;
+  position: absolute;
+  width: 100%;
+  margin-left: .5%;
+  transform: translateY(-50%);
+  justify-content: space-between;
+  z-index: 1;
+}
+.postSingle .info .images {
+  margin-top: 15px;
+  overflow: hidden;
+  position: relative;
+}
+.postSingle .info .image {
+  flex-shrink: 0 ;
+  width: 264px;
+  height: 264px;
+  margin-right: 20px;
+  position: relative;
+}
+.postSingle .info .image .remove {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: 0;
+  font-weight: bold;
+  font-size: 1.2rem;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: #c25668;
+  color: white;
+  cursor: pointer;
+  display: none;
+  opacity: .8;
+}
+.postSingle .info .image img {
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  max-width: 100%;
+  border-radius: 5px;
+}
+.postSingle .actionBtn button {
+  background: transparent;
+  border: 0;
+  font-size: 1.5rem;
+  margin-right: 20px;
+  color: #D3D8E0;
+  cursor: pointer;
+}
+.postSingle .actionBtn button i {
+  margin-right: 10px;
+}
+.postSingle .open {
+  display: block;
+}
+.postSingle .closed {
+  display: none;
+}
+.postSingle .comments {
+  margin-top: 10px;
+  padding-top: 10px;
+}
+.postSingle .comments form {
+  margin-bottom: 15px;
+  align-items: center;
+  justify-content: space-between;
+}
+.postSingle .comments form textarea {
+  height: 60px;
+  width: 90%;
+  border-radius: 15px;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  resize: none;
+}
+.postSingle .comments form label {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  cursor: pointer;
+  background-color: #454545;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.postSingle .comments h3 {
+  color: #555555;
+  margin-bottom: 15px;
+}
+.postSingle .comments .commentSingle {
+  align-items: center;
+  border-top: 1px solid #D3D8E0;
+  padding: 10px 0;
+  margin-top: 15px;
+}
+.postSingle .comments .commentSingle .commentImg {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: #ccc;
+  margin-right: 15px;
+}
+.postSingle .comments .commentSingle .commentImg img {
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  max-height: 100%;
+  border-radius: 50%;
+}
+.postSingle .comments .commentSingle .commentInfo a {
+  color: #454545;
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-decoration: none;
+}
+.postSingle .comments .commentSingle .commentInfo a:hover {
+  text-decoration: underline;
+}
+.postSingle .comments .commentSingle .commentInfo span {
+  color: #454545;
+  opacity: 44%;
+}
+.postSingle .comments .commentSingle .commentActions {
+  margin-left: 55px;
+}
+.postSingle .comments .commentSingle .commentActions button {
+  font-size: 1.3rem !important;
+  color: #969aa0 !important;
+  margin-right: 10px !important;
+}
+.postSingle .comments .commentSingle .commentActions .like-comment i {
+  margin-right: 5px !important;
+}
+.postSingle .comments .commentSingle .commentActions .show {
+  font-size: 1rem !important;
+  text-decoration: underline;
+}
+.postSingle .comments .commentSingle .replyComment {
+  margin-top: 15px;
+}

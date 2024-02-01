@@ -1,3 +1,7 @@
+<script>
+    document.title = "Bem-vindo(a) ao SocialMedia!";
+</script>
+
 <section class="flex loginBox center">
     <div class="info">
         <h1>Social.Media</h1>

@@ -1,10 +1,10 @@
 
 <?php
-    $friends = models\friendsModel::getFriends()
-    
+    $friends = models\friendsModel::getFriends();
+    addCss($arr2['css']);  
 ?>
-    <h2 class="friendTitle"><?php if($arr['page'] == 'amigos'){echo 'Amigos';}else{echo 'Busque novos amigos';}?></h2>
-    <?php if($arr['page'] != 'amigos'){?>
+    <h2 class="friendTitle"><?php if($arr2['page'] == 'amigos'){echo 'Amigos';}else{echo 'Busque novos amigos';}?></h2>
+    <?php if($arr2['page'] != 'amigos'){?>
         <form method="post" class="searchForm">
             <input type="search" name="searchUser" placeholder="Busque novos amigos...">
         </form>
@@ -12,7 +12,7 @@
 <section class="friends container">
 
     <div class="amigos flex">
-    <?php if($arr['page'] == 'amigos'){
+    <?php if($arr2['page'] == 'amigos'){
             foreach ($friends as $key => $value) {      
         ?>
         <div class="amigoSingle flex" idFriend="<?=$value['id']?>">

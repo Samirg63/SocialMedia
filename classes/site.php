@@ -8,12 +8,44 @@
             $ontem = date('Y-m-d',time()-60*60*24);
             $sql = Mysql::conectar()->prepare("DELETE FROM `tb_admin.requestNewPassword` WHERE criado_em <= ?");
             $sql->execute([$ontem]);
+            $sql = Mysql::conectar()->prepare("DELETE FROM `tb_admin.logged` WHERE criado_em <= ?");
+            $sql->execute([$ontem]);
+
+        }
+
+        public static function checkLogin(){
+            if(isset($_SESSION['token'])){
+
+                $sql = Mysql::conectar()->prepare('SELECT * FROM `tb_admin.logged` WHERE token = ? ');
+                $sql->execute([$_SESSION['token']]);
+                if($sql->rowCount() == 0){
+                    //Outro login foi feito
+                    session_destroy();
+                    echo '<script>alert("Sua conta foi acessada em outro dispositivo, desconectando automaticamente...")</script>';
+                    site::redirect(PATH.'login');
+                    die();
+                }
+            }
+
         }
 
         public static function login($user,$id,$img){
             $_SESSION['login'] = $user;
             $_SESSION['id'] = $id;
             $_SESSION['img'] = $img;
+
+            //criar token de login
+            $token = uniqid();
+            $_SESSION['token'] = $token;
+            $sql = Mysql::conectar()->prepare('SELECT * FROM `tb_admin.logged` WHERE user_id = ?');
+            $sql->execute([$id]);
+            if($sql->rowCount() == 0){
+                $sql = Mysql::conectar()->prepare('INSERT INTO `tb_admin.logged` VALUES(null,?,?,?)');
+                $sql->execute([$id,$token,date('Y-m-d',time())]);
+            }else{
+                $sql = Mysql::conectar()->prepare('UPDATE `tb_admin.logged` SET token = ? WHERE user_id = ?');
+                $sql->execute([$token,$id]);
+            }
 
             self::redirect(PATH);
             die();
@@ -132,10 +164,16 @@
             }
         }
 
-        public static function getFotos(){
-            $sql = Mysql::conectar()->prepare('SELECT images FROM `tb_site.posts` WHERE id_user=?');
-            $sql->execute([$_SESSION['id']]);
-            return $sql->fetchAll();
+        public static function getFotos($id = null){
+            if($id == null){
+                $sql = Mysql::conectar()->prepare('SELECT images FROM `tb_site.posts` WHERE id_user=?');
+                $sql->execute([$_SESSION['id']]);
+                return $sql->fetchAll();
+            }else{
+                $sql = Mysql::conectar()->prepare('SELECT images FROM `tb_site.posts` WHERE id_user=?');
+                $sql->execute([$id]);
+                return $sql->fetchAll();
+            }
         }
 
         public static function getComments($postId){

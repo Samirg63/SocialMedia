@@ -52,4 +52,25 @@
                 break;
         }
     }
+
+    function addCss($arr){
+        foreach ($arr as $key => $value) {
+            if(file_exists(BASE_DIR.'/css/'.$value.'-style.min.css')){
+                echo '<link rel="stylesheet" href="'.PATH.'css/'.$value.'-style.min.css">';
+                
+            }else if(file_exists(BASE_DIR.'/css/'.$value.'-style.css')){
+                echo '<link rel="stylesheet" href="'.PATH.'css/'.$value.'-style.css">';
+            }
+        }
+    }
+    function addComponents($arr){
+        foreach ($arr as $key => $value) {
+            if(file_exists(BASE_DIR.'/css/components/'.$value.'.min.css')){
+                echo '<link rel="stylesheet" href="'.PATH.'css/components/'.$value.'.min.css">';
+                
+            }else if(file_exists(BASE_DIR.'/css/components/'.$value.'.css')){
+                echo '<link rel="stylesheet" href="'.PATH.'css/components/'.$value.'.css">';
+            }
+        }
+    }
 ?>

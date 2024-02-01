@@ -1,0 +1,142 @@
+section.userInfo{
+    
+    >h2{
+        color: #454545;
+    }
+    >.flex{
+        width: 100%;
+        align-items: flex-start;
+        justify-content: space-between;
+    }
+    div.ultimosPosts{
+        width: 64% !important;
+        margin-top: 30px;
+
+        form{
+            margin-bottom: 15px;
+            align-items: center;
+            justify-content: space-between;
+            textarea{
+                height: 60px;
+                width: 90%;
+                border-radius: 15px;
+                padding: 1rem;
+                border: 1px solid #ccc;
+                resize: none;
+            } 
+            
+            label{
+                width: 45px;
+                height: 45px;
+                border-radius: 50%;
+                cursor: pointer;
+                background-color: #454545;
+                color: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+
+        .info{
+            position: relative;
+
+            .carrosselBtn{
+                top: 55% !important;
+                width: 100% !important;
+            }
+        }
+    }
+
+    .commentActions{
+                        
+        margin-left: 55px;
+        
+        button{
+            font-size: 1.3rem !important;
+            color: #969aa0 !important;
+            margin-right: 10px !important;
+        }
+
+        .like-comment i{
+            margin-right: 5px !important;
+        }
+
+        .show{
+            font-size: 1rem !important;
+            text-decoration: underline;
+        }
+    }
+
+    .replyComment{
+        margin-top: 15px;
+    }
+}
+
+section.myFriends{
+    width: 34%;
+    margin-top: 30px;
+    background-color: white;
+    padding: 1rem;
+    border-radius: 10px;
+
+    >p{
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: #454545;
+    }
+
+    .amigos{
+        text-align: center;
+
+        
+
+        .amigoSingle{
+            align-items: center;
+            margin-bottom: 20px;
+
+            
+            .amigoImg{
+                width: 55px;
+                height: 55px;
+                border-radius: 50%;
+                background-color: #ccc;
+                margin-right: 15px;
+
+                img{
+                    width: 100%;
+                    max-width: 100%;
+                    border-radius: 50%;
+                }
+            }
+            .amigoInfo{
+                text-align: left;
+                margin-left: 10px;
+                p{
+                    a{
+                        color:#454545;
+                        text-decoration: none;
+
+                        &:hover{
+                            text-decoration: underline;
+                        }
+                    }
+                    font-size: 1.1rem;
+                    font-weight: bold;
+                }
+                span{
+                    color: #454545;
+                    opacity: 44%;
+                }
+            }
+        }
+
+        a{
+            margin-top: 15px;
+            opacity: 80%;
+            color: #5085E8;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    }
+}

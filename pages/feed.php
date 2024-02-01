@@ -1,7 +1,7 @@
 <?php
-    
     $posts = models\feedModel::getPosts();
-    
+    addCss($arr2['css']);
+    addComponents($arr2['component']);
 ?>
 <div class="flex container">
 

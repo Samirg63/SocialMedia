@@ -1,0 +1,103 @@
+form.form-primary{
+    background-color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 3;
+    transform: translate(-50%,-50% );
+    border-radius: 15px;
+    
+
+    .top{
+        padding: .8rem;
+        border-bottom: 1px solid #454545;
+        text-align: center;
+        position: relative;
+
+        button{
+            background: transparent;
+            border: 0;
+            cursor: pointer;
+            font-size: 1.2rem;
+            position: absolute;
+            left: .8rem;
+            top: .8rem;
+        }
+        input{
+            background: transparent;
+            border: 0;
+            cursor: pointer;
+            color: #5085E8;
+            font-weight: bold;
+            font-size: 1rem;
+            position: absolute;
+            right: .8rem;
+            top: 1rem;
+        }
+    }
+
+    .fields{
+        padding: .8rem;
+        height: 300px;
+        .imageField{
+            width: 50%;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+
+            h5{
+                color: #ccc;
+            }
+
+            label{
+                font-size: 3rem;
+                color: #ccc;
+                cursor: pointer;
+            }
+
+            .images{
+                width: 100%;
+                position: relative;
+                overflow: hidden;
+                   
+                
+                .image{
+                    flex-shrink: 0 ;
+                    width: 90%;
+                    margin-right: 10%;
+                    position: relative;
+
+                    .remove{
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        border: 0;
+                        font-weight: bold;
+                        font-size: 1.2rem;
+                        width: 25px;
+                        height: 25px;
+                        border-radius: 50%;
+                        background-color:rgb(194, 86, 104);
+                        color: white;
+                        cursor: pointer;
+                        display: none;
+                        opacity: .4;
+                    }
+                    img{
+                        width: 100%;
+                        max-width: 100%;
+                        border-radius: 15px;
+                    }
+                }
+            }
+        }
+        
+        textarea{
+            width: 60%;
+            resize: none;
+            border-radius: 15px;
+            border: 1px solid #ccc;
+            padding: 1rem;
+        }
+    }
+}

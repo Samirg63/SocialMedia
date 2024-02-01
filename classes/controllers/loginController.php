@@ -4,7 +4,7 @@
     class loginController{
     
         
-        public function autenticateBox(){
+        public function autenticateBox($arr2 = ['component'=>['autenticateBox']]){
             
             include('pages/includes/autenticateBox.php');
         }   
@@ -87,13 +87,14 @@
                     if(\Bcrypt::check($senha,$info['senha'])){
                         #SUCESSO
                         \site::login($info['user'],$info['id'],$info['img']);
+                        
                     }else{
                         #ERRO
                         echo '<script>alert("Usuario ou senha incorretos...")</script>';
                     }
                 }
             }
-            \views\mainview::render('login');
+            \views\mainview::render('login',['css'=>['login'],'component'=>['passwordBox']]);
         }
 
         public function enviarEmail($login,$user){

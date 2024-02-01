@@ -3,10 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Social Media</title>
-    <link rel="stylesheet" href="<?=PATH?>css/style.min.css">
-    <link rel="stylesheet" href="<?=PATH?>css/all.min.css">
+    <title><?php if(models\homeModel::checkNewNotification()){echo '('.models\homeModel::checkNewNotification().') ';}?>Social Media</title>
     <script src="<?=PATH?>js/JQuery.js"></script>
+    <link rel="stylesheet" href="<?=PATH?>css/global-style.min.css">
+    <link rel="stylesheet" href="<?=PATH?>css/header-style.min.css">
+    <link rel="stylesheet" href="<?=PATH?>css/all.min.css">
+    <link rel="stylesheet" href="<?=PATH?>css/components/formulario.min.css">
+    <?php
+    if(isset($arr['css'])){
+        foreach ($arr['css'] as $key => $value) {
+            if(file_exists(BASE_DIR.'/css/'.$value.'-style.min.css')){
+                echo '<link rel="stylesheet" href="'.PATH.'css/'.$value.'-style.min.css">';
+            }else if(file_exists(BASE_DIR.'/css/'.$value.'-style.css')){
+                echo '<link rel="stylesheet" href="'.PATH.'css/'.$value.'-style.css">';
+            }
+        }
+    }
+    if(isset($arr['component'])){
+        foreach ($arr['component'] as $key => $value) {
+            if(file_exists(BASE_DIR.'/css/components/'.$value.'.min.css')){
+                echo '<link rel="stylesheet" href="'.PATH.'css/components/'.$value.'.min.css">';
+            }else if(file_exists(BASE_DIR.'/css/components/'.$value.'.css')){
+                echo '<link rel="stylesheet" href="'.PATH.'css/components/'.$value.'.css">';
+            }
+        }
+    }
+    
+    ?>
 </head>
 <body>
     <path path="<?=PATH?>"></path>
@@ -17,7 +40,7 @@
     </form>
     <div class="createPostContainer">
 
-        <form method="post" class="newPost" enctype="multipart/form-data">
+        <form method="post" class="newPost form-primary" enctype="multipart/form-data">
             <?php if(isset($_POST['acao']) && $_POST['acao'] == 'seePreview' && isset($_SESSION['previewImgs'])){echo '<div class="lock" style="display:none;">-</div>';}?>
             <div class="top">
                 <button class="closePopUp"><i class="fa-solid fa-x"></i></button>

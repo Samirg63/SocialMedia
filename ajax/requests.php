@@ -190,9 +190,15 @@ include('../config.php');
 
 
         }else if($_POST['action1'] == 'addReply'){
-            $content = '<b>@'.$_POST['repliedName'].'</b> '.$_POST['content'];
-            $sql = Mysql::conectar()->prepare('INSERT INTO `tb_site.reply.comments` VALUES(null,?,?,?)');
-            $sql->execute([$_POST['commentId'],$_SESSION['id'],$content]);
+            $content = $_POST['content'];
+
+            //Pegar o nome de quem recebeu a resposta
+            $sql = Mysql::conectar()->prepare('SELECT user FROM `tb_admin.usuarios` WHERE id=?');
+            $sql->execute([$_POST['ownerId']]);
+            $prefix = $sql->fetch()['user'];
+
+            $sql = Mysql::conectar()->prepare('INSERT INTO `tb_site.reply.comments` VALUES(null,?,?,?,?)');
+            $sql->execute([$_POST['commentId'],$_SESSION['id'],$prefix,$content]);
             
             if($_POST['ownerId'] != $_SESSION['id']){
                 //Notificação

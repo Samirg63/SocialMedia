@@ -1,4 +1,4 @@
-form.form-primary {
+.form-primary {
   background-color: white;
   position: absolute;
   top: 50%;
@@ -7,13 +7,13 @@ form.form-primary {
   transform: translate(-50%, -50%);
   border-radius: 15px;
 }
-form.form-primary .top {
+.form-primary .top {
   padding: .8rem;
   border-bottom: 1px solid #454545;
   text-align: center;
   position: relative;
 }
-form.form-primary .top button {
+.form-primary .top button {
   background: transparent;
   border: 0;
   cursor: pointer;
@@ -22,7 +22,7 @@ form.form-primary .top button {
   left: .8rem;
   top: .8rem;
 }
-form.form-primary .top input {
+.form-primary .top input {
   background: transparent;
   border: 0;
   cursor: pointer;
@@ -33,36 +33,36 @@ form.form-primary .top input {
   right: .8rem;
   top: 1rem;
 }
-form.form-primary .fields {
+.form-primary .fields {
   padding: .8rem;
   height: 300px;
 }
-form.form-primary .fields .imageField {
+.form-primary .fields .imageField {
   width: 50%;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
-form.form-primary .fields .imageField h5 {
+.form-primary .fields .imageField h5 {
   color: #ccc;
 }
-form.form-primary .fields .imageField label {
+.form-primary .fields .imageField label {
   font-size: 3rem;
   color: #ccc;
   cursor: pointer;
 }
-form.form-primary .fields .imageField .images {
+.form-primary .fields .imageField .images {
   width: 100%;
   position: relative;
   overflow: hidden;
 }
-form.form-primary .fields .imageField .images .image {
+.form-primary .fields .imageField .images .image {
   flex-shrink: 0 ;
   width: 90%;
   margin-right: 10%;
   position: relative;
 }
-form.form-primary .fields .imageField .images .image .remove {
+.form-primary .fields .imageField .images .image .remove {
   position: absolute;
   top: 0;
   right: 0;
@@ -78,12 +78,12 @@ form.form-primary .fields .imageField .images .image .remove {
   display: none;
   opacity: .4;
 }
-form.form-primary .fields .imageField .images .image img {
+.form-primary .fields .imageField .images .image img {
   width: 100%;
   max-width: 100%;
   border-radius: 15px;
 }
-form.form-primary .fields textarea {
+.form-primary .fields textarea {
   width: 60%;
   resize: none;
   border-radius: 15px;

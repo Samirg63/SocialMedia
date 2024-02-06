@@ -67,9 +67,9 @@
                 <h3>Faça seu comentário:</h3>
                 <form method="post" class="flex commentForm">
                     <textarea name="comentario" placeholder="Seu comentário..."></textarea>
-                    <input type="submit" name="postComment" id="submitComment" style="display:none;">
+                    <input type="submit" name="postComment" id="submitComment<?=$value['id']?>" style="display:none;">
                     <input type="hidden" name="postId" value="<?=$value['id']?>">
-                    <label for="submitComment"><i class="fa-solid fa-paper-plane"></i></label>
+                    <label for="submitComment<?=$value['id']?>"><i class="fa-solid fa-paper-plane"></i></label>
                 </form>
 
                 <div class="commentsContainer">
@@ -96,7 +96,7 @@
                             </div>
                         </div><!-- flex -->
 
-                        <div class="actionBtn flex commentActions" idComment="<?=$value['id']?>">
+                        <div class="actionBtn flex commentActions father" idComment="<?=$value['id']?>" reply_to="<?=$value['user_id']?>">
                             <button class="like-comment" "><i  class="fa-regular fa-heart"></i><span>0</span></button>
                             <button class="reply"><i class="fa-solid fa-reply"></i></button>
                             <button class="show"><span class="status">Mostrar</span> Resposta (<span class="quantity"><?= models\feedModel::getReplyQuantity($value['id']) ?></span>)</button>

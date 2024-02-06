@@ -20,7 +20,7 @@
                 <div class="options">
                     <ul>
                         <li><button class="deletePost"><i class="fa-regular fa-trash-can"></i><span>Apagar post</span></button></li>
-                        <li><button class="editPost"><a href="<?=PATH?>?editPost=<?=$value['id']?>">
+                        <li><button class="editPost"><a href="<?=PATH_HOME?>?editPost=<?=$value['id']?>">
                             <i class="fa-solid fa-pen"></i><span>Editar post</span></button></li>
                         </a>
                     </ul>
@@ -70,10 +70,10 @@
                 <h3>Faça seu comentário:</h3>
                 <form method="post" class="flex commentForm trueComment">
                     <textarea name="comentario" placeholder="Seu comentário..."></textarea>
-                    <input type="submit" name="postComment" id="submitComment" style="display:none;">
+                    <input type="submit" name="postComment" id="submitComment<?=$value['id']?>" style="display:none;">
                     <input type="hidden" name="postId" value="<?=$value['id']?>">
                     <input type="hidden" name="ownerId" value="<?=$value['id_user']?>">
-                    <label for="submitComment"><i class="fa-solid fa-paper-plane"></i></label>
+                    <label for="submitComment<?=$value['id']?>"><i class="fa-solid fa-paper-plane"></i></label>
                 </form>
 
                 <div class="commentsContainer">
@@ -100,7 +100,7 @@
                             </div>
                         </div><!-- flex -->
 
-                        <div class="actionBtn flex commentActions" idComment="<?=$value['id']?>" ownerId="<?=$value['user_id']?>">
+                        <div class="actionBtn flex commentActions" idComment="<?=$value['id']?>" reply_to="<?=$value['user_id']?>">
                             <button class="like-comment" "><i  class="fa-regular fa-heart"></i><span>0</span></button>
                             <button class="reply" ><i class="fa-solid fa-reply"></i></button>
                             <button class="show"><span class="status">Mostrar</span> Resposta (<span class="quantity"><?= models\feedModel::getReplyQuantity($value['id']) ?></span>)</button>

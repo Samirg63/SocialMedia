@@ -546,7 +546,7 @@ $(function(){
         })
 
         //Editar Post
-        $('.editPost').click(function(){
+        $('.editPostSubmit').click(function(){
             let conteudo = $('.float').find('[name=conteudo]').val();
             let imgString = '';
             let postId = $('[name=postId]').val();
@@ -636,11 +636,11 @@ $(function(){
             //Comentar Comentário - (Abrir formulario)
             $('body').on('click','.reply',function(){
                 let container = $(this).parent().parent();
-                let ownerId = $(this).parent().attr('ownerId');
+                let ownerId = $(this).parent().attr('reply_to');
 
                 //validação de container
                 if(container.find('.replyComment').html() == undefined){
-                    $('.replyComment').remove()
+                    $('.replyComment').remove()                  
                     container.append(`
                     <form method="post" class="flex commentForm replyComment">
                         <textarea name="comentario" placeholder="Seu comentário..."></textarea>
@@ -659,15 +659,14 @@ $(function(){
                 let commentId = $(this).parent().find('.commentActions').attr('idComment');
                 let content = $(this).find('textarea').val();
                 let ownerId = $(this).find('[name=ownerId]').val();
-                let quantityContainer = $(this).parent().find('.quantity');
+                let quantityContainer = $(this).parents('.commentSingle').find('.quantity');
                 let quantity = parseInt(quantityContainer.html()) + 1;
                 let container = $(this);
-                let repliedName = container.parent().find('.commentInfo p').html();
                 e.preventDefault();
                 $.ajax({
                     url:path+'ajax/requests.php',
                     method:'post',
-                    data:{action1:'addReply',commentId:commentId,content:content,repliedName:repliedName,ownerId:ownerId}
+                    data:{action1:'addReply',commentId:commentId,content:content,ownerId:ownerId}
                 }).done(function(){
                     quantityContainer.html(quantity)
                     container.remove()
@@ -696,7 +695,6 @@ $(function(){
                                 dataType:'json',
                                 data:{action1:'getUserInfo',userId:replys[key].id_user}
                             }).done(function(user){
-                                console.log(user)
                                 $('.replys').prepend(`
                                 <div class="commentSingle" style="margin-left:55px;">
                                     <div class="flex">
@@ -704,9 +702,14 @@ $(function(){
                                         </div>
                                         <div class="commentInfo">
                                             <p><a href="${path}home/perfil/${user[0].user}">${user[0].user}</a></p>
-                                            <span>${replys[key].content}</span>
+                                            <span><b>@${replys[key].prefix}</b> ${replys[key].content}</span>
                                         </div>
                                     </div><!-- flex -->    
+                                        <div class="actionBtn flex commentActions" idComment="${replys[key].id_comment}" reply_to="${replys[key].id_user}">
+                                        <button class="reply reply-comment">
+                                            <i class="fa-solid fa-reply"></i>
+                                        </button>
+                                        </div><!--actionBtn-->
                                 </div><!--comentSingle-->
                                 `)
 
@@ -745,14 +748,14 @@ $(function(){
         //HABILITAR CARROSEL
             $('div.carrosel').parent().append(`
             <div class="carrosselBtn flex">
-                <button class="left"><i class="fa-solid fa-arrow-left"></i></button>
+                <button class="left" style="opacity:0;"><i class="fa-solid fa-arrow-left"></i></button>
                 <button class="right"><i class="fa-solid fa-arrow-right"></i></button>
             </div>
             `);
         
             $('div.carroselPerfil').parent().append(`
             <div class="carrosselBtn flex">
-                <button class="left"><i class="fa-solid fa-arrow-left"></i></button>
+                <button class="left" style="opacity:0;"><i class="fa-solid fa-arrow-left"></i></button>
                 <button class="right"><i class="fa-solid fa-arrow-right"></i></button>
             </div>
             `);
@@ -764,97 +767,181 @@ $(function(){
 
 
         //Funcionalidade
-
-         //FEED
            
             //Avançar
             $('.postSingle .right').click(function(){
                 let images = $(this).parent().parent().find('.images')
                 let actWidth =  images.scrollLeft();
-                let maxWidth = images[0].scrollWidth;
-                let nextWidth = actWidth + postWidth;
-                if(nextWidth > maxWidth){
-                    nextWidth = maxWidth;
+                let imagesQuant = 2;
+                let imageWidth = images.find('.image').width();
+                let scrool = imageWidth * imagesQuant;
+                var maxScroll = images[0].scrollWidth - images.outerWidth();
+                let nextWidth = actWidth + scrool;
+                if(nextWidth >= maxScroll){
+                    nextWidth = maxScroll
                 }
                 images.animate({
                     scrollLeft:nextWidth+'px'
                 },500)
+
+
+                //desabilitar
+                
+                if((actWidth+scrool) >= maxScroll-20){
+                    $(this).css('opacity','0');
+                }
+
+                //habilitar left
+                if($(this).parent().find('.left').css('opacity') == 0){
+                    $(this).parent().find('.left').css('opacity','.7')
+                }
             })
 
             //Voltar
 
             $('.postSingle .left').click(function(){
                 let images = $(this).parent().parent().find('.images')
-                let actWidth =  images.scrollLeft();;
-                let nextWidth = actWidth - postWidth;
-                if(nextWidth < 0){
+                let actWidth =  images.scrollLeft();
+                let imagesQuant = 2;
+                let imageWidth = images.find('.image').width();
+                let scrool = imageWidth * imagesQuant;
+                var maxScroll = images[0].scrollWidth - images.outerWidth();
+                let nextWidth = actWidth - scrool;
+                if(nextWidth <= 0){
                     nextWidth = 0;
                 }
                 images.animate({
                     scrollLeft:nextWidth+'px'
                 },500)
+
+
+                //desabilitar
+                
+                if((actWidth - scrool) <= 0){
+                    $(this).css('opacity','0')     
+                }
+
+                //habilitar right
+                if($(this).parent().find('.right').css('opacity') == 0){
+                    $(this).parent().find('.right').css('opacity','.7')
+                }
             })
         
         //PERFIL
 
             //Avançar
             $('.user .right').click(function(){
-                
-                let images = $(this).parent().parent().find('.userPhotos')
+                let images = $(this).parent().parent().find('.userPhotos');
                 let actWidth =  images.scrollLeft();
-                let maxWidth = images[0].scrollWidth;
-                let nextWidth = actWidth + perfilWidth;
-
-                if(nextWidth > maxWidth){
-                    nextWidth = maxWidth;
+                let imagesQuant = 5;
+                let imageWidth = images.find('.photoSingle').width();
+                let scrool = imageWidth * imagesQuant;
+                var maxScroll = images[0].scrollWidth - images.outerWidth();
+                let nextWidth = actWidth + scrool;
+                if(nextWidth >= maxScroll){
+                    nextWidth = maxScroll
                 }
                 images.animate({
                     scrollLeft:nextWidth+'px'
                 },500)
+
+
+                //desabilitar
+                if((actWidth+scrool) >= maxScroll-20){
+                    $(this).css('opacity','0');
+                }
+
+                //habilitar left
+                if($(this).parent().find('.left').css('opacity') == 0){
+                    $(this).parent().find('.left').css('opacity','.7')
+                }
             })
 
             //Voltar
 
             $('.user .left').click(function(){
-                
                 let images = $(this).parent().parent().find('.userPhotos')
-                let actWidth =  images.scrollLeft();;
-                let nextWidth = actWidth - perfilWidth;
-                if(nextWidth < 0){
+                let actWidth =  images.scrollLeft();
+                let imagesQuant = 5;
+                let imageWidth = images.find('.photoSingle').width();
+                let scrool = imageWidth * imagesQuant;
+                let nextWidth = actWidth - scrool;
+                if(nextWidth <= 0){
                     nextWidth = 0;
                 }
                 images.animate({
                     scrollLeft:nextWidth+'px'
                 },500)
+
+
+                //desabilitar
+                
+                if((actWidth - scrool) <= 0){
+                    $(this).css('opacity','0')     
+                }
+
+                //habilitar right
+                if($(this).parent().find('.right').css('opacity') == 0){
+                    $(this).parent().find('.right').css('opacity','.7')
+                }
             })
 
         //PREVIEWPOST
         
             //Avançar
             $('.imageField .right').click(function(){
-                let images = $(this).parent().parent().find('.images')
+                let images = $(this).parent().parent().find('.images');
                 let actWidth =  images.scrollLeft();
-                let maxWidth = images[0].scrollWidth;
-                let nextWidth = actWidth + PreviewWidth;
-                if(nextWidth > maxWidth){
-                    nextWidth = maxWidth;
+                let imagesQuant = 1;
+                let imageWidth = images.find('.image').width();
+                let scrool = imageWidth * imagesQuant;
+                var maxScroll = images[0].scrollWidth - images.outerWidth();
+                let nextWidth = actWidth + scrool;
+                if(nextWidth >= maxScroll){
+                    nextWidth = maxScroll
                 }
                 images.animate({
                     scrollLeft:nextWidth+'px'
                 },500)
+
+
+                //desabilitar
+                if((actWidth+scrool) >= maxScroll-20){
+                    $(this).css('opacity','0');
+                }
+
+                //habilitar left
+                if($(this).parent().find('.left').css('opacity') == 0){
+                    $(this).parent().find('.left').css('opacity','.7')
+                }
             })
 
             //Voltar
 
             $('.imageField .left').click(function(){
                 let images = $(this).parent().parent().find('.images')
-                let actWidth =  images.scrollLeft();;
-                let nextWidth = actWidth - PreviewWidth;
-                if(nextWidth < 0){
+                let actWidth =  images.scrollLeft();
+                let imagesQuant = 1;
+                let imageWidth = images.find('.image').width();
+                let scrool = imageWidth * imagesQuant;
+                let nextWidth = actWidth - scrool;
+                if(nextWidth <= 0){
                     nextWidth = 0;
                 }
                 images.animate({
                     scrollLeft:nextWidth+'px'
                 },500)
+
+
+                //desabilitar
+                
+                if((actWidth - scrool) <= 0){
+                    $(this).css('opacity','0')     
+                }
+
+                //habilitar right
+                if($(this).parent().find('.right').css('opacity') == 0){
+                    $(this).parent().find('.right').css('opacity','.7')
+                }
             })
     })

@@ -59,6 +59,9 @@ section.user .userInfo .info .bio {
   color: #454545;
   opacity: 60%;
 }
+section.user .userPhotos {
+  overflow-x: scroll !important;
+}
 section.user .userPhotos .photoSingle {
   flex-shrink: 0;
   width: 181px;

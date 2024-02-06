@@ -1,5 +1,6 @@
 <div class="overlayFix"></div>
 <?php
+addComponents($arr2['component']);
 $url = $_GET['url'];
 $url = explode('/',$url);
 $page = $url[count($url) - 1];
@@ -10,11 +11,11 @@ $page = $url[count($url) - 1];
             <?php
                 $value = models\homeModel::getPostInfo($_GET['editPost']);
             ?>
-<div class="float" style="width: 900px;">
+<div class="float form-primary" style="width: 900px;">
     <div class="top">
                 <button class="closePopUp"><i class="fa-solid fa-x"></i></button>
                 <h3>Editar publicação</h3>
-                <input class="editPost" type="submit" name="" value="Editar">
+                <input class="editPostSubmit" type="submit" name="" value="Editar">
             </div> 
     <div class="postSingle">
 

@@ -13,7 +13,6 @@
             }
 
             if(isset($_POST['acao']) && $_POST['acao'] == 'seePreview'){
-                //echo '<script>alert("teste")</script>';
                 $images = $_FILES['fotos'];
                 $allImages = [];
                 for ($i=0; $i < count($images['type']); $i++) { 
@@ -98,7 +97,7 @@
             }
 
             if(isset($_GET['editPost'])){
-                \views\mainView::pureRender('postEditor', [] ,'component');
+                \views\mainView::pureRender('postEditor', ['component'=>['formulario']] ,'component');
             }
 
 

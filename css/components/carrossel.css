@@ -15,9 +15,9 @@
   cursor: pointer;
   opacity: .7;
 }
-.postSingle .carroselBtn {
-  top: 55% ;
-  width: 100%;
+.postSingle .carrosselBtn {
+  top: 55% !important;
+  width: 100% !important;
 }
 section.user .carrosselBtn {
   top: 85%;

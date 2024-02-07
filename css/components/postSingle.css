@@ -6,7 +6,8 @@
   margin-bottom: 25px;
   position: relative;
 }
-.postSingle .openOptions {
+.postSingle .openOptions,
+.postSingle .openOptionsComment {
   position: absolute;
   right: 1rem;
   background: transparent;
@@ -17,7 +18,8 @@
   cursor: pointer;
   display: none;
 }
-.postSingle .options {
+.postSingle .options,
+.postSingle .optionsComment {
   background-color: #282828;
   width: 30%;
   padding: .3rem;
@@ -27,24 +29,29 @@
   display: none;
   top: 3rem;
 }
-.postSingle .options ul {
+.postSingle .options ul,
+.postSingle .optionsComment ul {
   list-style: none;
   list-style-position: inside;
 }
-.postSingle .options ul li {
+.postSingle .options ul li,
+.postSingle .optionsComment ul li {
   text-align: center;
 }
-.postSingle .options ul li a {
+.postSingle .options ul li a,
+.postSingle .optionsComment ul li a {
   color: #D3D8E0;
   text-decoration: none;
 }
-.postSingle .options ul li button {
+.postSingle .options ul li button,
+.postSingle .optionsComment ul li button {
   background: transparent;
   border: 0;
   cursor: pointer;
   color: #D3D8E0;
 }
-.postSingle .options ul li button i {
+.postSingle .options ul li button i,
+.postSingle .optionsComment ul li button i {
   margin-right: 15px;
 }
 .postSingle .user {
@@ -162,6 +169,7 @@
   margin-bottom: 15px;
 }
 .postSingle .comments .commentSingle {
+  position: relative;
   align-items: center;
   border-top: 1px solid #D3D8E0;
   padding: 10px 0;

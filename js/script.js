@@ -31,6 +31,11 @@ $(function(){
         deletes = [];
     })
 
+    $('.deleteEditor').click(function(){
+        $('.overlayFix').remove()
+        $('.editor').remove();
+    })
+
     //Clear Forms
     $('.editFotoForm .cancel').click(function(e){
         $('.clearForm').trigger('submit');
@@ -491,6 +496,7 @@ $(function(){
         $('.trueComment').on('submit',function(e){
             e.preventDefault();
             let info = $(this).serializeArray()
+            console.log(info)
             let content = info[0].value;
             let postId = info[1].value;
             let trueContainer = $(this).parent().parent();
@@ -503,6 +509,7 @@ $(function(){
                 data:{content:content,postId:postId,commentQuant:commentQuant+1,action1:'postComment',ownerId:ownerId},
                 dataType:'json'
             }).done(function(data){
+               
 
                 $('textarea[name=comentario]').val('');
                 $.ajax({
@@ -517,23 +524,33 @@ $(function(){
                 })
                 
                 
-                if(data.img != ''){
-                    var image = path+'uploads/'+data.img
+                if(data[0].img != ''){
+                    var image = path+'uploads/'+data[0].img
                 }else{
                     var image = path+'assets/avatar-placeholder.jpg'
                 }
+
                 container.prepend(`
                 <div class="commentSingle">
+                <button class="openOptionsComment"><i class="fa-solid fa-ellipsis"></i></button>
+                <div class="optionsComment">
+                    <ul>
+                        <li><button class="deleteComment"><i class="fa-regular fa-trash-can"></i><span>Apagar comentario</span></button></li>
+                        <li><button class="editComment"><a href="${path}home/editComment=${data[1]}">
+                            <i class="fa-solid fa-pen"></i><span>Editar comentario</span></button></li>
+                        </a>
+                    </ul>
+                </div>
                 <div class="flex">
                     <div class="commentImg">
                         <img src="${image}">
                     </div>
                     <div class="commentInfo">
-                        <p>${data.user}</p>
+                        <p>${data[0].user}</p>
                         <span>${content}</span>
                     </div>
                 </div>
-                <div class="actionBtn flex commentActions" idComment="<?=$value['id']?>" ownerId="<?=$value['user_id']?>">
+                <div class="actionBtn flex commentActions" idComment="${data[1]}" ownerId="${ownerId}">
                     <button class="like-comment" "><i  class="fa-regular fa-heart"></i><span>0</span></button>
                     <button class="reply" ><i class="fa-solid fa-reply"></i></button>
                     <button class="show"><span class="status">Mostrar</span> Resposta (<span class="quantity">0</span>)</button>
@@ -542,7 +559,7 @@ $(function(){
                 </div><!--comentSingle-->
                 `)
             })
-
+            
         })
 
         //Editar Post
@@ -618,6 +635,7 @@ $(function(){
         $('.deletePost').click(function(){
             let container = $(this).parents('.postSingle');
             let postId = container.find('.actionBtn').attr('idPost');
+            
             if(confirm('Deletar Post?')){
                 $.ajax({
                     url:path+'ajax/requests.php',
@@ -726,6 +744,76 @@ $(function(){
                     container.find('.replys').remove()
                 }
             })
+
+            //Menu de opções dos commentarios
+             //MOSTRAR MENU DE OPÇÕES
+            $('.commentSingle').hover(function(){
+                //Checar se tem o menu
+                let menu = $(this).find('.openOptionsComment');
+                if(typeof(menu) != undefined){
+                    //menu existe
+                    menu.fadeIn(200)
+                }
+            },function(){
+                let menu = $(this).find('.openOptionsComment');
+                if(!menu.parent().find('.optionsComment').is(':visible')){
+                    if(typeof(menu) != undefined){
+                        //menu existe
+                        menu.fadeOut(200)
+                    }
+                }
+            })
+
+            //ABRIR MENU DE OPÇÔES
+            $('.openOptionsComment').click(function(){
+                let menu = $(this).parent().find('.optionsComment')
+                menu.slideToggle(200);
+                
+            })
+
+            //Deletar comentário
+
+            $('.deleteComment').click(function(){
+                let container = $(this).parents('.commentSingle');
+                let commentId = container.find('.actionBtn').attr('idComment');
+                let idPost = container.find('.actionBtn').attr('id_post');
+                let commentQuant = $(this).parents('.postSingle').find('.comment').attr('noFormatedNumber');
+                if(confirm('Deletar Comentario?')){
+                    $.ajax({
+                        url:path+'ajax/requests.php',
+                        method:'post',
+                        data:{action1:'deleteComment',idComment:commentId, idPost:idPost,commentQuant:commentQuant}
+                    }).done(function(){
+                        container.fadeOut(function(){
+                            container.remove();
+                        })
+                    })
+                }
+            })
+
+            //editarComentario
+
+            $('.editCommentSubmit').click(function(){
+                let conteudo = $('.float').find('[name=commentContent]').val();
+                let commentId = $('[name=commentId]').val();
+                
+                
+                
+                $.ajax({
+                    url:path+'ajax/requests.php',
+                    method:'post',
+                    data:{action1:'editComment',conteudo:conteudo,commentId:commentId}
+                }).done(function(){
+                    if($('[name=page]').val() == 'perfil'){
+                        window.location.href=path+'home/perfil';
+                    }else{
+                        window.location.href=path+'home';
+                    }
+                })
+            })
+    
+
+
             
     /*Component passWordBox*/
 

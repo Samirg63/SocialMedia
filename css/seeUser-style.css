@@ -60,7 +60,7 @@ section.user .userInfo .info .bio {
   opacity: 60%;
 }
 section.user .userPhotos {
-  overflow-x: scroll !important;
+  overflow: hidden !important;
 }
 section.user .userPhotos .photoSingle {
   flex-shrink: 0;

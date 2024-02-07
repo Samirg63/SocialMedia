@@ -59,16 +59,17 @@
             </div>
 
             <div class="actionBtn flex" idPost="<?=$value['id']?>">
-                <button class="like" noFormatedNumber="<?=$value['likes']?> title="<?=site::formatNumberTitle($value['likes'])?>"><i style="<?php if(site::hasLiked($value['id'])){echo 'color:#ff8787;';}?>" class="<?php if(site::hasLiked($value['id'])){echo 'fa-solid';}else{echo 'fa-regular';}?> fa-heart"></i><span><?=site::formatNumber($value['likes'])?></span></button>
-                <button class="comment" noFormatedNumber="<?=$value['comments']?> title="<?=site::formatNumberTitle($value['comments'])?>"><i class="fa-regular fa-comment"></i><span><?=site::formatNumber($value['comments'])?></span></button>
+                <button class="like" noFormatedNumber="<?=$value['likes']?>" title="<?=site::formatNumberTitle($value['likes'])?>"><i style="<?php if(site::hasLiked($value['id'])){echo 'color:#ff8787;';}?>" class="<?php if(site::hasLiked($value['id'])){echo 'fa-solid';}else{echo 'fa-regular';}?> fa-heart"></i><span><?=site::formatNumber($value['likes'])?></span></button>
+                <button class="comment" noFormatedNumber="<?=$value['comments']?>" title="<?=site::formatNumberTitle($value['comments'])?>"><i class="fa-regular fa-comment"></i><span><?=site::formatNumber($value['comments'])?></span></button>
             </div>
 
             <div class="comments closed">
                 <h3>Faça seu comentário:</h3>
-                <form method="post" class="flex commentForm">
+                <form method="post" class="flex commentForm trueComment">
                     <textarea name="comentario" placeholder="Seu comentário..."></textarea>
                     <input type="submit" name="postComment" id="submitComment<?=$value['id']?>" style="display:none;">
                     <input type="hidden" name="postId" value="<?=$value['id']?>">
+                    <input type="hidden" name="ownerId" value="<?=$value['id_user']?>">
                     <label for="submitComment<?=$value['id']?>"><i class="fa-solid fa-paper-plane"></i></label>
                 </form>
 
@@ -81,6 +82,17 @@
                     $userInfoComment = site::getUserInfo($value['user_id']);
                 ?>
                     <div class="commentSingle">
+                        <?php if($value['user_id'] == $_SESSION['id']){?>
+                            <button class="openOptionsComment"><i class="fa-solid fa-ellipsis"></i></button>
+                            <div class="optionsComment">
+                                <ul>
+                                    <li><button class="deleteComment"><i class="fa-regular fa-trash-can"></i><span>Apagar comentario</span></button></li>
+                                    <li><button class="editComment"><a href="<?=PATH_HOME?>perfil?editComment=<?=$value['id']?>">
+                                        <i class="fa-solid fa-pen"></i><span>Editar comentario</span></button></li>
+                                    </a>
+                                </ul>
+                            </div>
+                        <?php }?>
                         <div class="flex">
 
                             <div class="commentImg">
@@ -96,7 +108,7 @@
                             </div>
                         </div><!-- flex -->
 
-                        <div class="actionBtn flex commentActions father" idComment="<?=$value['id']?>" reply_to="<?=$value['user_id']?>">
+                        <div class="actionBtn flex commentActions father" id_post="<?=$value['post_id']?>" idComment="<?=$value['id']?>" reply_to="<?=$value['user_id']?>">
                             <button class="like-comment" "><i  class="fa-regular fa-heart"></i><span>0</span></button>
                             <button class="reply"><i class="fa-solid fa-reply"></i></button>
                             <button class="show"><span class="status">Mostrar</span> Resposta (<span class="quantity"><?= models\feedModel::getReplyQuantity($value['id']) ?></span>)</button>

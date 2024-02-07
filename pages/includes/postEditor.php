@@ -1,4 +1,5 @@
 <div class="overlayFix"></div>
+<section class="editor">
 <?php
 addComponents($arr2['component']);
 $url = $_GET['url'];
@@ -13,7 +14,7 @@ $page = $url[count($url) - 1];
             ?>
 <div class="float form-primary" style="width: 900px;">
     <div class="top">
-                <button class="closePopUp"><i class="fa-solid fa-x"></i></button>
+                <button class="closePopUp deleteEditor"><i class="fa-solid fa-x"></i></button>
                 <h3>Editar publicação</h3>
                 <input class="editPostSubmit" type="submit" name="" value="Editar">
             </div> 
@@ -62,5 +63,6 @@ $page = $url[count($url) - 1];
             
         </div><!--Post-single-->
     </div>
+</section>
         
         

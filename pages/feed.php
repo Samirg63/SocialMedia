@@ -85,6 +85,17 @@
                     $userInfoComment = site::getUserInfo($value['user_id']);
                 ?>
                     <div class="commentSingle">
+                        <?php if($value['user_id'] == $_SESSION['id']){?>
+                            <button class="openOptionsComment"><i class="fa-solid fa-ellipsis"></i></button>
+                            <div class="optionsComment">
+                                <ul>
+                                    <li><button class="deleteComment"><i class="fa-regular fa-trash-can"></i><span>Apagar comentario</span></button></li>
+                                    <li><button class="editComment"><a href="<?=PATH_HOME?>?editComment=<?=$value['id']?>">
+                                        <i class="fa-solid fa-pen"></i><span>Editar comentario</span></button></li>
+                                    </a>
+                                </ul>
+                            </div>
+                        <?php }?>
                         <div class="flex">
 
                             <div class="commentImg">
@@ -100,7 +111,7 @@
                             </div>
                         </div><!-- flex -->
 
-                        <div class="actionBtn flex commentActions" idComment="<?=$value['id']?>" reply_to="<?=$value['user_id']?>">
+                        <div class="actionBtn flex commentActions" id_post="<?=$value['post_id']?>" idComment="<?=$value['id']?>" reply_to="<?=$value['user_id']?>">
                             <button class="like-comment" "><i  class="fa-regular fa-heart"></i><span>0</span></button>
                             <button class="reply" ><i class="fa-solid fa-reply"></i></button>
                             <button class="show"><span class="status">Mostrar</span> Resposta (<span class="quantity"><?= models\feedModel::getReplyQuantity($value['id']) ?></span>)</button>

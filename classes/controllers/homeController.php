@@ -99,6 +99,9 @@
             if(isset($_GET['editPost'])){
                 \views\mainView::pureRender('postEditor', ['component'=>['formulario']] ,'component');
             }
+            if(isset($_GET['editComment'])){
+                \views\mainView::pureRender('commentEditor', ['component'=>['formulario']] ,'component');
+            }
 
 
             \views\mainview::render('home',['css'=>['home']]);

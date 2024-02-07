@@ -23,5 +23,11 @@
 
             return $sql->fetch();
         }
+        public static function getCommentInfo($id){
+            $sql = \Mysql::conectar()->prepare('SELECT * FROM `tb_site.comments` WHERE id = ?');
+            $sql->execute([$id]);
+
+            return $sql->fetch();
+        }
     }
 ?>

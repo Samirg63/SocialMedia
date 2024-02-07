@@ -89,6 +89,10 @@ include('../config.php');
         }else if($_POST['action1'] == 'postComment'){
             $sql = Mysql::conectar()->prepare('INSERT INTO `tb_site.comments` VALUES(null,?,?,?)');
             $sql->execute([$_POST['content'],$_POST['postId'],$_SESSION['id']]);
+
+            //id do comentario
+            $id = Mysql::conectar()->lastInsertId();
+            
             //att numero de comentarios
             $sql = Mysql::conectar()->prepare('UPDATE `tb_site.posts` SET comments=? WHERE id=?');
             $sql->execute([$_POST['commentQuant'],$_POST['postId']]);
@@ -101,10 +105,14 @@ include('../config.php');
                 $sql->execute([$_SESSION['id'],$_POST['ownerId'],'comentou',0,$_POST['postId']]);
             }
 
-            //Informações do usuario par inserção dinâmica
+            //Informações do usuario para inserção dinâmica
             $sql = Mysql::conectar()->prepare('SELECT user,img FROM `tb_admin.usuarios` WHERE id = ?');
             $sql->execute([$_SESSION['id']]);
-            die(json_encode($sql->fetch()));
+            $info[] = $sql->fetch();
+            $info[] = $id;
+
+            
+        die(json_encode($info));
 
 
         }else if($_POST['action1'] == 'deletefriend'){
@@ -239,6 +247,27 @@ include('../config.php');
                     }
                 }
             }
+            die();
+        }else if($_POST['action1'] == 'deleteComment'){
+            $idComment = $_POST['idComment'];
+
+            //deletar replys do comentario
+            $sql = Mysql::conectar()->prepare('DELETE FROM `tb_site.reply.comments` WHERE id_comment = ?');
+            $sql->execute([$idComment]);
+
+            //deletar Comentario
+            $sql = Mysql::conectar()->prepare('DELETE FROM `tb_site.comments` WHERE id = ?');
+            $sql->execute([$idComment]);
+
+            //update no numero de comentarios do post principal
+            $commentNumber = (int)$_POST['commentQuant'];
+            $sql = Mysql::conectar()->prepare('UPDATE `tb_site.posts` SET comments = ? WHERE id = ?');
+            $sql->execute([($commentNumber-1),$_POST['idPost'] ]);
+
+            die();
+        }else if($_POST['action1'] == 'editComment'){
+            $sql = Mysql::conectar()->prepare('UPDATE `tb_site.comments` SET content=? WHERE id = ?');
+            $sql->execute([$_POST['conteudo'],$_POST['commentId']]);    
             die();
         }
 

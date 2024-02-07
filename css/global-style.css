@@ -91,3 +91,6 @@ img {
   border-radius: 5px;
   border: 1px solid #ccc;
 }
+.w100 {
+  width: 100% !important;
+}

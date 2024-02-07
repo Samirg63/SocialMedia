@@ -269,6 +269,19 @@ include('../config.php');
             $sql = Mysql::conectar()->prepare('UPDATE `tb_site.comments` SET content=? WHERE id = ?');
             $sql->execute([$_POST['conteudo'],$_POST['commentId']]);    
             die();
+        }else if($_POST['action1'] == 'deleteReply'){
+            $idReply = $_POST['idReply'];
+
+            //deletar Comentario
+            $sql = Mysql::conectar()->prepare('DELETE FROM `tb_site.reply.comments` WHERE id = ?');
+            $sql->execute([$idReply]);
+
+            
+            die();
+        }else if($_POST['action1'] == 'editReply'){
+            $sql = Mysql::conectar()->prepare('UPDATE `tb_site.reply.comments` SET content=? WHERE id = ?');
+            $sql->execute([$_POST['conteudo'],$_POST['replyId']]);    
+            die();
         }
 
     //ACTION 2

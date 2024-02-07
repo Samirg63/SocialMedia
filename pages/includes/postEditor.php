@@ -10,6 +10,7 @@ $page = $url[count($url) - 1];
 <input type="hidden" name="postId" value="<?=$_GET['editPost']?>">
 
             <?php
+            
                 $value = models\homeModel::getPostInfo($_GET['editPost']);
             ?>
 <div class="float form-primary" style="width: 900px;">

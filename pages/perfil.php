@@ -4,6 +4,7 @@
     addCss($arr2['css']);
     addComponents($arr2['component']);
 ?>
+<page page="home/perfil"></page>
 <div class="editFormContainer">
     <form class="editFotoForm form-primary" method="post" enctype="multipart/form-data">
         <div class="top">

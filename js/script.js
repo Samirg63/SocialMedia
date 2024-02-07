@@ -713,8 +713,18 @@ $(function(){
                                 dataType:'json',
                                 data:{action1:'getUserInfo',userId:replys[key].id_user}
                             }).done(function(user){
+                                page = $('page').attr('page');
                                 $('.replys').prepend(`
-                                <div class="commentSingle" style="margin-left:55px;">
+                                <div class="replySingle" style="margin-left:55px;">
+                                <button class="openOptionsReply"><i class="fa-solid fa-ellipsis"></i></button>
+                                <div class="optionsReply">
+                                    <ul>
+                                        <li><button class="deleteReply"><i class="fa-regular fa-trash-can"></i><span>Apagar comentario</span></button></li>
+                                        <li><button class="editReply"><a href="${path+page}?editReply=${replys[key].id}">
+                                            <i class="fa-solid fa-pen"></i><span>Editar comentario</span></button></li>
+                                        </a>
+                                    </ul>
+                                </div>
                                     <div class="flex">
                                         <div class="commentImg">  
                                         </div>
@@ -723,7 +733,7 @@ $(function(){
                                             <span><b>@${replys[key].prefix}</b> ${replys[key].content}</span>
                                         </div>
                                     </div><!-- flex -->    
-                                        <div class="actionBtn flex commentActions" idComment="${replys[key].id_comment}" reply_to="${replys[key].id_user}">
+                                        <div class="actionBtn flex commentActions" idReply="${replys[key].id}" idComment="${replys[key].id_comment}" reply_to="${replys[key].id_user}">
                                         <button class="reply reply-comment">
                                             <i class="fa-solid fa-reply"></i>
                                         </button>
@@ -732,9 +742,9 @@ $(function(){
                                 `)
 
                                 if(user[0].img == ''){
-                                    $('.replys').find('.commentSingle').eq(0).find('.commentImg').html('<img src="'+path+'assets/avatar-placeholder.jpg">')
+                                    $('.replys').find('.replySingle').eq(0).find('.commentImg').html('<img src="'+path+'assets/avatar-placeholder.jpg">')
                                 }else{
-                                    $('.replys').find('.commentSingle').eq(0).find('.commentImg').html('<img src="'+path+'uploads/'+user[0].img+'">')
+                                    $('.replys').find('.replySingle').eq(0).find('.commentImg').html('<img src="'+path+'uploads/'+user[0].img+'">')
                                 }
                             })                         
                         });
@@ -745,35 +755,41 @@ $(function(){
                 }
             })
 
+            //variavel de controle de hover
+            
+
+
             //Menu de opções dos commentarios
              //MOSTRAR MENU DE OPÇÕES
-            $('.commentSingle').hover(function(){
+             $('.postSingle').on('mouseover','.commentSingle',function(){
                 //Checar se tem o menu
+                
                 let menu = $(this).find('.openOptionsComment');
                 if(typeof(menu) != undefined){
                     //menu existe
-                    menu.fadeIn(200)
+                    menu.show()
                 }
-            },function(){
+             })
+             $('.postSingle').on('mouseout','.commentSingle',function(){
                 let menu = $(this).find('.openOptionsComment');
                 if(!menu.parent().find('.optionsComment').is(':visible')){
                     if(typeof(menu) != undefined){
                         //menu existe
-                        menu.fadeOut(200)
+                        menu.hide()
                     }
                 }
-            })
+             })
+            
 
             //ABRIR MENU DE OPÇÔES
-            $('.openOptionsComment').click(function(){
+            $('.postSingle').on('click','.openOptionsComment',function(){
                 let menu = $(this).parent().find('.optionsComment')
                 menu.slideToggle(200);
                 
             })
 
             //Deletar comentário
-
-            $('.deleteComment').click(function(){
+            $('.postSingle').on('click','.deleteComment',function(){
                 let container = $(this).parents('.commentSingle');
                 let commentId = container.find('.actionBtn').attr('idComment');
                 let idPost = container.find('.actionBtn').attr('id_post');
@@ -811,6 +827,80 @@ $(function(){
                     }
                 })
             })
+
+            //Menu de opções de replys
+
+             //MOSTRAR MENU DE OPÇÕES
+             $('.postSingle').on('mouseover','.replySingle',function(){
+                $('.openOptionsComment').css('display','none');
+                 
+                let menu = $(this).find('.openOptionsReply');
+                if(typeof(menu) != undefined){
+                    //menu existe
+                    menu.show()
+                }
+             })
+             $('.postSingle').on('mouseout','.replySingle',function(){
+                //$(this).parents('.commentSingle').find('.openOptionsComment').css('display','inline-block');
+                let menu = $(this).find('.openOptionsReply');
+                if(!menu.parent().find('.optionsReply').is(':visible')){
+                    if(typeof(menu) != undefined){
+                        //menu existe
+                        menu.hide()
+                    }
+                }
+             })
+             
+
+            //ABRIR MENU DE OPÇÔES
+            $('.postSingle').on('click','.openOptionsReply',function(){
+                let menu = $(this).parent().find('.optionsReply')
+                menu.slideToggle(200);
+            })
+
+            //Deletar comentário
+            $('.postSingle').on('click','.deleteReply',function(){
+                let container = $(this).parents('.replySingle');
+                let replyId = container.find('.actionBtn').attr('idReply');
+                if(confirm('Deletar Comentario?')){
+                    $.ajax({
+                        url:path+'ajax/requests.php',
+                        method:'post',
+                        data:{action1:'deleteReply',idReply:replyId}
+                    }).done(function(){
+                        let quantity = parseInt(container.parents('.commentSingle').find('.quantity').html());
+                        container.parents('.commentSingle').find('.quantity').html(quantity-1)
+                        
+                        container.fadeOut(function(){
+                            container.remove();
+                        })
+                    })
+                }
+            })
+            
+
+            //editarComentario
+
+            $('.editor').on('click','.editReplySubmit',function(){
+                let conteudo = $('.float').find('[name=commentContent]').val();
+                let ReplyId = $('[name=commentId]').val();
+                
+                
+                
+                $.ajax({
+                    url:path+'ajax/requests.php',
+                    method:'post',
+                    data:{action1:'editReply',conteudo:conteudo,replyId:ReplyId}
+                }).done(function(){
+                    if($('[name=page]').val() == 'perfil'){
+                        window.location.href=path+'home/perfil';
+                    }else{
+                        window.location.href=path+'home';
+                    }
+                })
+            })
+
+           
     
 
 

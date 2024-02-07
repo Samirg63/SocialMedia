@@ -3,6 +3,7 @@
     addCss($arr2['css']);
     addComponents($arr2['component']);
 ?>
+<page page="home"></page>
 <div class="flex container">
 
     <section class="posts">

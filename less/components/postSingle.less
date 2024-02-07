@@ -6,7 +6,7 @@
     margin-bottom: 25px;
     position: relative;
 
-    .openOptions, .openOptionsComment{
+    .openOptions, .openOptionsComment, .openOptionsReply{
         position: absolute;
         right: 1rem;
         background: transparent;
@@ -17,7 +17,7 @@
         cursor: pointer;
         display: none;
     }
-    .options, .optionsComment{
+    .options, .optionsComment, .optionsReply{
         background-color: rgb(40,40,40);
         width: 30%;
         padding: .3rem;
@@ -32,6 +32,11 @@
             list-style-position: inside;
             li{
                 text-align: center;
+                padding: 5px 0;
+
+                &:not(li:last-of-type){
+                    border-bottom: 1px solid #D3D8E0;
+                }
                 a{
                     color: #D3D8E0;
                     text-decoration: none;
@@ -189,7 +194,7 @@
             color: #555555;
             margin-bottom: 15px;
         }
-        .commentSingle{
+        .commentSingle, .replySingle{
             position: relative;
             align-items: center;
             border-top: 1px solid #D3D8E0;

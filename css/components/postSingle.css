@@ -7,7 +7,8 @@
   position: relative;
 }
 .postSingle .openOptions,
-.postSingle .openOptionsComment {
+.postSingle .openOptionsComment,
+.postSingle .openOptionsReply {
   position: absolute;
   right: 1rem;
   background: transparent;
@@ -19,7 +20,8 @@
   display: none;
 }
 .postSingle .options,
-.postSingle .optionsComment {
+.postSingle .optionsComment,
+.postSingle .optionsReply {
   background-color: #282828;
   width: 30%;
   padding: .3rem;
@@ -30,28 +32,39 @@
   top: 3rem;
 }
 .postSingle .options ul,
-.postSingle .optionsComment ul {
+.postSingle .optionsComment ul,
+.postSingle .optionsReply ul {
   list-style: none;
   list-style-position: inside;
 }
 .postSingle .options ul li,
-.postSingle .optionsComment ul li {
+.postSingle .optionsComment ul li,
+.postSingle .optionsReply ul li {
   text-align: center;
+  padding: 5px 0;
+}
+.postSingle .options ul li:not(li:last-of-type),
+.postSingle .optionsComment ul li:not(li:last-of-type),
+.postSingle .optionsReply ul li:not(li:last-of-type) {
+  border-bottom: 1px solid #D3D8E0;
 }
 .postSingle .options ul li a,
-.postSingle .optionsComment ul li a {
+.postSingle .optionsComment ul li a,
+.postSingle .optionsReply ul li a {
   color: #D3D8E0;
   text-decoration: none;
 }
 .postSingle .options ul li button,
-.postSingle .optionsComment ul li button {
+.postSingle .optionsComment ul li button,
+.postSingle .optionsReply ul li button {
   background: transparent;
   border: 0;
   cursor: pointer;
   color: #D3D8E0;
 }
 .postSingle .options ul li button i,
-.postSingle .optionsComment ul li button i {
+.postSingle .optionsComment ul li button i,
+.postSingle .optionsReply ul li button i {
   margin-right: 15px;
 }
 .postSingle .user {
@@ -168,55 +181,66 @@
   color: #555555;
   margin-bottom: 15px;
 }
-.postSingle .comments .commentSingle {
+.postSingle .comments .commentSingle,
+.postSingle .comments .replySingle {
   position: relative;
   align-items: center;
   border-top: 1px solid #D3D8E0;
   padding: 10px 0;
   margin-top: 15px;
 }
-.postSingle .comments .commentSingle .commentImg {
+.postSingle .comments .commentSingle .commentImg,
+.postSingle .comments .replySingle .commentImg {
   width: 45px;
   height: 45px;
   border-radius: 50%;
   background-color: #ccc;
   margin-right: 15px;
 }
-.postSingle .comments .commentSingle .commentImg img {
+.postSingle .comments .commentSingle .commentImg img,
+.postSingle .comments .replySingle .commentImg img {
   width: 100%;
   max-width: 100%;
   height: 100%;
   max-height: 100%;
   border-radius: 50%;
 }
-.postSingle .comments .commentSingle .commentInfo a {
+.postSingle .comments .commentSingle .commentInfo a,
+.postSingle .comments .replySingle .commentInfo a {
   color: #454545;
   font-size: 1.1rem;
   font-weight: bold;
   text-decoration: none;
 }
-.postSingle .comments .commentSingle .commentInfo a:hover {
+.postSingle .comments .commentSingle .commentInfo a:hover,
+.postSingle .comments .replySingle .commentInfo a:hover {
   text-decoration: underline;
 }
-.postSingle .comments .commentSingle .commentInfo span {
+.postSingle .comments .commentSingle .commentInfo span,
+.postSingle .comments .replySingle .commentInfo span {
   color: #454545;
   opacity: 44%;
 }
-.postSingle .comments .commentSingle .commentActions {
+.postSingle .comments .commentSingle .commentActions,
+.postSingle .comments .replySingle .commentActions {
   margin-left: 55px;
 }
-.postSingle .comments .commentSingle .commentActions button {
+.postSingle .comments .commentSingle .commentActions button,
+.postSingle .comments .replySingle .commentActions button {
   font-size: 1.3rem !important;
   color: #969aa0 !important;
   margin-right: 10px !important;
 }
-.postSingle .comments .commentSingle .commentActions .like-comment i {
+.postSingle .comments .commentSingle .commentActions .like-comment i,
+.postSingle .comments .replySingle .commentActions .like-comment i {
   margin-right: 5px !important;
 }
-.postSingle .comments .commentSingle .commentActions .show {
+.postSingle .comments .commentSingle .commentActions .show,
+.postSingle .comments .replySingle .commentActions .show {
   font-size: 1rem !important;
   text-decoration: underline;
 }
-.postSingle .comments .commentSingle .replyComment {
+.postSingle .comments .commentSingle .replyComment,
+.postSingle .comments .replySingle .replyComment {
   margin-top: 15px;
 }

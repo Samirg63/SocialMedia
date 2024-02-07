@@ -99,7 +99,7 @@
             if(isset($_GET['editPost'])){
                 \views\mainView::pureRender('postEditor', ['component'=>['formulario']] ,'component');
             }
-            if(isset($_GET['editComment'])){
+            if(isset($_GET['editComment']) || isset($_GET['editReply'])){
                 \views\mainView::pureRender('commentEditor', ['component'=>['formulario']] ,'component');
             }
 

@@ -29,5 +29,11 @@
 
             return $sql->fetch();
         }
+        public static function getReplyInfo($id){
+            $sql = \Mysql::conectar()->prepare('SELECT * FROM `tb_site.reply.comments` WHERE id = ?');
+            $sql->execute([$id]);
+
+            return $sql->fetch();
+        }
     }
 ?>
